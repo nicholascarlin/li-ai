@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { AuthProvider } from './contexts/Auth';
+import ForgotPasswordModule from './components/auth/ForgotPasswordModule';
+import HomePage from './components/pages/HomePage';
+import LoginModule from './components/auth/LoginModule';
+import NotificationProvider from './contexts/NotificationProvider';
+import PrivateRoutes from './components/router/PrivateRoutes';
+import ResetPasswordModule from './components/auth/ResetPasswordModule';
+import SignupModule from './components/auth/SignupModule';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className='w-screen h-screen'>
+			<BrowserRouter>
+				<NotificationProvider>
+					<AuthProvider>
+						<Routes>
+							<Route element={<PrivateRoutes />}>
+								<Route exact path='/*' element={<HomePage />} />
+							</Route>
+							<Route element={<LoginModule />} path='/login' />
+							<Route element={<SignupModule />} path='/signup' />
+							<Route
+								element={<ForgotPasswordModule />}
+								path='/forgot-password'
+							/>
+							<Route element={<ResetPasswordModule />} path='/reset-password' />
+						</Routes>
+					</AuthProvider>
+				</NotificationProvider>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;
