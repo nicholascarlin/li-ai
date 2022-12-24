@@ -3,23 +3,39 @@ import React, { useEffect, useState } from 'react';
 import AnimatedHamburgerMenu from '../UI/buttons/AnimatedHamburgerMenu';
 import { FetchUser } from '../data/SupabaseFunctions';
 import Header from '../UI/Header';
+import LIURLBody from '../bodies/LIURLBody';
+import LoadingPage from './LoadingPage';
+import ResumeBody from '../bodies/ResumeBody';
 import SideBar from '../UI/SideBar';
 import { useAuth } from '../../contexts/Auth';
 
 const HomePage = () => {
-	const [user, setUser] = useState(null);
+	const [currentUser, setCurrentUser] = useState(null);
 	const [isSideMenuActive, setSideMenuStatus] = useState(false);
+	const [isLoaded, setLoadingStatus] = useState(false);
+	const [isLIURLSet, setLIURLStatus] = useState(false);
 
 	let { user: userAuth } = useAuth();
 
 	useEffect(() => {
-		setUser(() => {
-			return FetchUser(userAuth.user.id);
-		});
-		console.log('UA', user);
+		setLoadingStatus(true);
+		HandleLoad();
 	}, []);
 
-	return (
+	const HandleLoad = async () => {
+		let tempUser = await FetchUser(userAuth.user.id);
+		setCurrentUser(tempUser);
+
+		console.log('USER', tempUser);
+
+		if (tempUser.li_url !== '') {
+			setLIURLStatus(true);
+		}
+
+		setLoadingStatus(true);
+	};
+
+	return isLoaded ? (
 		<div className='flex fixed w-full'>
 			<AnimatedHamburgerMenu
 				isOpen={isSideMenuActive}
@@ -28,9 +44,11 @@ const HomePage = () => {
 			<SideBar isSideMenuActive={isSideMenuActive} />
 			<div className='flex flex-col w-full'>
 				<Header isSideMenuActive={isSideMenuActive} />
-				<div>BODy</div>
+				{!isLIURLSet ? <LIURLBody /> : <ResumeBody />}
 			</div>
 		</div>
+	) : (
+		<LoadingPage />
 	);
 };
 

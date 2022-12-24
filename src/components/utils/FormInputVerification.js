@@ -8,3 +8,14 @@ export const VerifyEmail = (email) => {
 		return 'Please enter a valid email address';
 	}
 };
+
+export const VerifyLinkedInURL = (url) => {
+	var validRegex =
+		/(^((https?:\/\/)?((www|\w\w)\.)?)linkedin\.com\/)((([\w]{2,3})?)|([^\/]+\/(([\w|\d-&#?=])+\/?){1,}))$/gim;
+
+	if (url.match(validRegex)) {
+		return true;
+	} else {
+		return 'Please enter a valid URL';
+	}
+};
