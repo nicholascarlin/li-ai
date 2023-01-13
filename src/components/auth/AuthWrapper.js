@@ -1,4 +1,4 @@
-import background from '../../assets/images/background.jpg';
+import background from '../../assets/images/test.jpg';
 import { useAuth } from '../../contexts/Auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ const AuthWrapper = (props) => {
 	}, [user]);
 
 	return (
-		<div className='w-full h-full flex items-center justify-center text-white'>
+		<div className='w-full h-full flex'>
 			<img
 				className='w-full h-full object-cover absolute z-0'
 				src={background}

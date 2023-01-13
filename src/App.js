@@ -16,9 +16,9 @@ function App() {
 				<NotificationProvider>
 					<AuthProvider>
 						<Routes>
-							<Route element={<PrivateRoutes />}>
-								<Route exact path='/*' element={<HomePage />} />
-							</Route>
+							{/* <Route element={<PrivateRoutes />}> */}
+							<Route exact path='/*' element={<HomePage />} />
+							{/* </Route> */}
 							<Route element={<LoginModule />} path='/login' />
 							<Route element={<SignupModule />} path='/signup' />
 							<Route

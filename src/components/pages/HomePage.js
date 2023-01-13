@@ -19,7 +19,7 @@ const HomePage = () => {
 
 	useEffect(() => {
 		setLoadingStatus(true);
-		HandleLoad();
+		// HandleLoad();
 	}, []);
 
 	const HandleLoad = async () => {
@@ -44,7 +44,8 @@ const HomePage = () => {
 			<SideBar isSideMenuActive={isSideMenuActive} />
 			<div className='flex flex-col w-full'>
 				<Header isSideMenuActive={isSideMenuActive} />
-				{!isLIURLSet ? <LIURLBody /> : <ResumeBody />}
+				{/* {!isLIURLSet ? <LIURLBody /> : <ResumeBody />} */}
+				<ResumeBody />
 			</div>
 		</div>
 	) : (
