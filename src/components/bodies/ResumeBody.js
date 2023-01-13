@@ -62,21 +62,21 @@ const ResumeBody = () => {
 											activeExperienceArray.includes(idx)
 												? 'rotate-0'
 												: 'rotate-90'
-										} transition-all duration-300`}
+										} transition-all duration-150`}
 									/>
 								</div>
-								{activeExperienceArray.includes(idx) ? (
-									<>
-										<div className='text-sm text-sub-medium'>
-											{item.expStartDate} - {item.expEndDate},{' '}
-											{item.expDuration}
-										</div>
-										<div className='text-sm text-sub-medium'>
-											{item.expLocation}
-										</div>
-										<div className='text-sm mt-3'>{item.expDescription}</div>{' '}
-									</>
-								) : null}
+								<div
+									className={`${
+										activeExperienceArray.includes(idx) ? 'h-full' : 'h-0'
+									} transition-all duration-150 overflow-hidden`}>
+									<div className='text-sm text-sub-medium'>
+										{item.expStartDate} - {item.expEndDate}, {item.expDuration}
+									</div>
+									<div className='text-sm text-sub-medium'>
+										{item.expLocation}
+									</div>
+									<div className='text-sm mt-3'>{item.expDescription}</div>{' '}
+								</div>
 							</div>
 						);
 					})}
