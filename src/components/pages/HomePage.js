@@ -15,7 +15,6 @@ const HomePage = () => {
 		<div className='flex flex-col w-full h-screen pb-4'>
 			<Header SetActiveWindow={setActiveWindow} ActiveWindow={activeWindow} />
 			<div className='h-full w-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
-				{/* {!isLIURLSet ? <LIURLBody /> : <ResumeBody />} */}
 				{activeWindow === 'RESUME' ? (
 					<ResumeBody SetGenerationLoadingStatus={setGenerationLoadingStatus} />
 				) : null}

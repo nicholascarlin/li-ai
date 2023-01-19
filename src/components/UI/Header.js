@@ -2,12 +2,14 @@ import ActiveButton from './buttons/ActiveButton';
 import LoadingButton from './buttons/LoadingButton';
 import React from 'react';
 import { useAuth } from '../../contexts/Auth';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ SetActiveWindow, ActiveWindow }) => {
 	const { signOut } = useAuth();
+	const navigate = useNavigate();
 
 	const HandleAccountClick = () => {
-		console.log('Handle Account Click');
+		navigate('/account');
 	};
 
 	const HandleSignOutClick = () => {

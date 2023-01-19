@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import AccountPage from './components/pages/AccountPage';
 import { AuthProvider } from './contexts/Auth';
 import ForgotPasswordModule from './components/auth/ForgotPasswordModule';
 import HomePage from './components/pages/HomePage';
@@ -18,6 +19,7 @@ function App() {
 						<Routes>
 							<Route element={<PrivateRoutes />}>
 								<Route exact path='/*' element={<HomePage />} />
+								<Route exact path='/account*' element={<AccountPage />} />
 							</Route>
 							<Route element={<LoginModule />} path='/login' />
 							<Route element={<SignupModule />} path='/signup' />
