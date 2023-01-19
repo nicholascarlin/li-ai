@@ -23,7 +23,7 @@ const ResumeBody = ({ SetGenerationLoadingStatus }) => {
 	};
 
 	return (
-		<div className='h-full w-full flex flex-col items-center justify-center -mt-20'>
+		<div className='h-full w-full flex flex-col items-center justify-center'>
 			<LabelInput
 				ref={userURLRef}
 				Label='https://linkedin.com/in/'

@@ -1,11 +1,13 @@
 import React, { createRef, useState } from 'react';
 
+import GenerateCoverLetter from '../data/generation/GenerateCoverLetter';
 import LabelInput from '../UI/inputs/LabelInput';
 import LoadingButton from '../UI/buttons/LoadingButton';
 import TextInput from '../UI/inputs/TextInput';
 
 const CoverLetterBodies = ({ SetGenerationLoadingStatus }) => {
 	const [isButtonLoading, setButtonLoadingStatus] = useState(false);
+	const [coverLetter, setCoverLetter] = useState(null);
 	const roleTitleURLRef = createRef();
 	const companyURLRef = createRef();
 	const userURLRef = createRef();
@@ -13,13 +15,22 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus }) => {
 	const HandleGenerateCoverLetter = () => {
 		setButtonLoadingStatus(true);
 		SetGenerationLoadingStatus(true);
-		console.log('Gen Cover Letter');
+
+		// GenerateCoverLetter(
+		// 	roleTitleURLRef.current.value,
+		// 	'https://linkedin.com/in/' + companyURLRef.current.value,
+		// 	'https://linkedin.com/company/' + userURLRef.current.value
+		// ).then((data) => {
+		// 	console.log(data);
+		// 	setCoverLetter(data);
+		// });
+
 		setButtonLoadingStatus(false);
 		SetGenerationLoadingStatus(false);
 	};
 
 	return (
-		<div className='h-full w-full flex flex-col items-center justify-center -mt-20'>
+		<div className='h-full w-full flex flex-col items-center justify-center'>
 			<TextInput
 				ref={roleTitleURLRef}
 				Placeholder='Company LinkedIn Handle'

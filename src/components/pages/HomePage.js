@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import CoverLetterBodies from '../bodies/CoverLetterBody';
+import Frame from '../bodies/Frame';
 import Header from '../UI/Header';
 import LoadingPage from './LoadingPage';
 import ResumeBody from '../bodies/ResumeBody';
@@ -13,7 +14,7 @@ const HomePage = () => {
 	return isLoaded ? (
 		<div className='flex flex-col w-full h-screen pb-4'>
 			<Header SetActiveWindow={setActiveWindow} ActiveWindow={activeWindow} />
-			<div className='h-full w-full grid grid-cols-2 p-4 gap-4'>
+			<div className='h-full w-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
 				{/* {!isLIURLSet ? <LIURLBody /> : <ResumeBody />} */}
 				{activeWindow === 'RESUME' ? (
 					<ResumeBody SetGenerationLoadingStatus={setGenerationLoadingStatus} />
@@ -23,7 +24,7 @@ const HomePage = () => {
 						SetGenerationLoadingStatus={setGenerationLoadingStatus}
 					/>
 				) : null}
-				<div className='bg-danger h-full w-full'></div>
+				<Frame isSearching={isGenerationLoading} />
 			</div>
 		</div>
 	) : (
