@@ -45,7 +45,10 @@ const HomePage = () => {
 			<div className='flex flex-col w-full'>
 				<Header isSideMenuActive={isSideMenuActive} />
 				{/* {!isLIURLSet ? <LIURLBody /> : <ResumeBody />} */}
-				<ResumeBody />
+				<div className='h-full w-full grid grid-cols-2 p-4 gap-4'>
+					<ResumeBody />
+					<div className='bg-danger h-full w-full'></div>
+				</div>
 			</div>
 		</div>
 	) : (
