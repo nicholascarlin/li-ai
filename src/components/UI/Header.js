@@ -17,7 +17,8 @@ const Header = ({ SetActiveWindow, ActiveWindow }) => {
 	let rightButtonAdditionalStyle = 'px-4';
 
 	return (
-		<div className={`w-full py-8 pb-4 grid grid-cols-3 items-center`}>
+		<div
+			className={`w-full md:pt-8 md:pb-4 pt-8 flex flex-col-reverse md:flex-col md:grid md:grid-cols-3 items-center`}>
 			<div className='col-start-2 align-center flex items-center justify-center mx-auto gap-4 h-full'>
 				<ActiveButton
 					IsActive={ActiveWindow === 'RESUME'}
@@ -32,7 +33,8 @@ const Header = ({ SetActiveWindow, ActiveWindow }) => {
 					Message='Generate Cover Letter'
 				/>
 			</div>
-			<div className='flex ml-auto pr-5 gap-4'>
+
+			<div className='flex justify-center md:justify-end mx-auto md:ml-auto md:pr-5 gap-4 mb-10 md:mb-0'>
 				<LoadingButton
 					Message={'Account'}
 					IsSecondary={false}
