@@ -18,7 +18,7 @@ const LoadingButton = ({
 			className={`${
 				!IsSecondary
 					? 'bg-primary hover:bg-primary-hover text-white'
-					: 'border-2 border-solid border-primary text-primary'
+					: 'border border-solid border-primary text-primary'
 			} font-semibold rounded-lg h-10 mx-auto cursor-pointer transition-all duration-300 ${AdditionalButtonStyle} ${
 				IsLoading ? `w-1/3 ${AdditionalLoadingStyle}` : ''
 			}`}>
