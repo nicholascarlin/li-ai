@@ -1,6 +1,7 @@
 import React, { createRef, useState } from 'react';
 
 import FetchLIProfileData from '../data/FetchLIProfileData';
+import LIResumeResults from './LIResumeResults';
 import LabelInput from '../UI/inputs/LabelInput';
 import LoadingButton from '../UI/buttons/LoadingButton';
 
@@ -12,10 +13,15 @@ const ResumeBody = ({ SetGenerationLoadingStatus }) => {
 	const HandleGenerateResume = async () => {
 		setButtonLoadingStatus(true);
 		SetGenerationLoadingStatus(true);
-		console.log('Search');
+
+		console.log('Search', userURLRef.current.value);
+		// const profileData = await FetchLIProfileData(
+		// 	'https://linkedin.com/in/' + userURLRef.current.value
+		// );
 		const profileData = await FetchLIProfileData(
-			'https://linkedin.com/in/' + userURLRef.current.value
+			'https://www.linkedin.com/in/nicholas-carlin-99489a198/'
 		);
+
 		console.log('Returned Profile Data', profileData);
 		setLIProfileData(profileData);
 		setButtonLoadingStatus(false);
@@ -37,6 +43,7 @@ const ResumeBody = ({ SetGenerationLoadingStatus }) => {
 				AdditionalButtonStyle='h-10 w-32 my-4'
 				IsLoading={isButtonLoading}
 			/>
+			{liProfileData ? <LIResumeResults LIProfileData={liProfileData} /> : null}
 		</div>
 	);
 };

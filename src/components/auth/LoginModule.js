@@ -35,6 +35,8 @@ export const LoginModule = () => {
 				body: resp?.error?.message,
 			});
 		} else {
+			console.log('RESP TOKEN', resp?.data?.session?.access_token);
+			localStorage.setItem('auth', resp?.data?.session?.access_token);
 			navigate('/home');
 		}
 		setLoadingStatus(false);
