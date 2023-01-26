@@ -12,9 +12,9 @@ const HomePage = () => {
 	const [activeWindow, setActiveWindow] = useState('RESUME');
 
 	return isLoaded ? (
-		<div className='flex flex-col w-full h-screen pb-4'>
+		<div className='flex flex-col w-full h-screen pb-4 lg:overflow-y-hidden'>
 			<Header SetActiveWindow={setActiveWindow} ActiveWindow={activeWindow} />
-			<div className='h-full w-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
+			<div className='w-full h-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
 				{activeWindow === 'RESUME' ? (
 					<ResumeBody SetGenerationLoadingStatus={setGenerationLoadingStatus} />
 				) : null}

@@ -1,27 +1,60 @@
+import LIItemImage from '../UI/LIItemImage';
 import React from 'react';
+
+let sectionWrapperStyle =
+	'w-2/3 flex flex-col items-center divide-y divide-sub-light';
+let sectionHeaderStyle = 'w-full text-xl font-bold mb-1';
 
 const LIResumeResults = ({ LIProfileData }) => {
 	return (
-		<div>
-			<div>test</div>
-			<div>{HandleEducation(LIProfileData.education)}</div>
+		<div className='w-full flex flex-col items-center'>
+			<>{HandleExperiences(LIProfileData.experiences)}</>
+			<>{HandleEducation(LIProfileData.education)}</>
 		</div>
 	);
 };
 
-const HandleEducation = ({ education }) => {
+function HandleEducation(education) {
 	return (
-		<div>
+		<div className={sectionWrapperStyle}>
+			<div className={sectionHeaderStyle}>Education</div>
 			{education?.map((item, idx) => {
-				console.log('ITEM', item);
 				return (
-					<div key={item + idx}>
-						<div>test</div>
-					</div>
+					<LIItemImage
+						key={item + idx}
+						item={{
+							image: item.logo_url,
+							title: item.school,
+							start_date: item.starts_at.year,
+							end_date: item.ends_at.year,
+						}}
+					/>
 				);
 			})}
 		</div>
 	);
-};
+}
+
+function HandleExperiences(experiences) {
+	return (
+		<div className={sectionWrapperStyle}>
+			<div className={sectionHeaderStyle}>Experiences</div>
+			{experiences?.map((item, idx) => {
+				console.log('Experience', item);
+				return (
+					<LIItemImage
+						key={item + idx}
+						item={{
+							image: item.logo_url,
+							title: item.school,
+							start_date: item.starts_at.year,
+							end_date: item.ends_at.year,
+						}}
+					/>
+				);
+			})}
+		</div>
+	);
+}
 
 export default LIResumeResults;
