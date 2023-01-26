@@ -19,11 +19,13 @@ function HandleEducation(education) {
 		<div className={sectionWrapperStyle}>
 			<div className={sectionHeaderStyle}>Education</div>
 			{education?.map((item, idx) => {
+				console.log('Education', item);
 				return (
 					<LIItemImage
 						key={item + idx}
 						item={{
 							image: item.logo_url,
+							position: item.field_of_study,
 							title: item.school,
 							start_date: item.starts_at.year,
 							end_date: item.ends_at.year,
@@ -47,7 +49,8 @@ function HandleExperiences(experiences) {
 						key={item + idx}
 						item={{
 							image: item.logo_url,
-							title: item.school,
+							position: item.title,
+							title: item.company,
 							start_date: item.starts_at.year,
 							end_date: item.ends_at.year,
 							description: item.description,

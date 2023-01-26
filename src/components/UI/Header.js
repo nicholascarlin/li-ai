@@ -13,6 +13,7 @@ const Header = ({ SetActiveWindow, ActiveWindow }) => {
 	};
 
 	const HandleSignOutClick = () => {
+		localStorage.clear();
 		signOut();
 	};
 

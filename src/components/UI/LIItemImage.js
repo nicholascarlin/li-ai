@@ -26,7 +26,7 @@ const LIItemImage = ({ item }) => {
 					/>
 					<div className='flex flex-col py-6 pr-4 relative'>
 						<div className='font-medium'>{item.title}</div>
-						<div className='text-sm'>Paylocity - Internship</div>
+						<div className='text-sm'>{item.position || ''}</div>
 						<div className='text-sm text-sub-medium'>
 							{item.start_date} - {item.end_date}
 						</div>

@@ -16,14 +16,20 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus }) => {
 		setButtonLoadingStatus(true);
 		SetGenerationLoadingStatus(true);
 
-		// GenerateCoverLetter(
-		// 	roleTitleURLRef.current.value,
-		// 	'https://linkedin.com/in/' + companyURLRef.current.value,
-		// 	'https://linkedin.com/company/' + userURLRef.current.value
-		// ).then((data) => {
-		// 	console.log(data);
-		// 	setCoverLetter(data);
-		// });
+		if (roleTitleURLRef === '' || companyURLRef === '' || userURLRef === '') {
+			setButtonLoadingStatus(false);
+			SetGenerationLoadingStatus(false);
+			return;
+		}
+
+		GenerateCoverLetter(
+			roleTitleURLRef.current.value,
+			'https://linkedin.com/in/' + companyURLRef.current.value,
+			'https://linkedin.com/company/' + userURLRef.current.value
+		).then((data) => {
+			console.log('CoverLetter Generate', data);
+			setCoverLetter(data);
+		});
 
 		setButtonLoadingStatus(false);
 		SetGenerationLoadingStatus(false);
@@ -33,7 +39,7 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus }) => {
 		<div className='h-full w-full flex flex-col items-center justify-center'>
 			<TextInput
 				ref={roleTitleURLRef}
-				Placeholder='Company LinkedIn Handle'
+				Placeholder='Role Title'
 				AdditionalWrapperStyle='mt-4 w-2/3'
 			/>
 			<LabelInput

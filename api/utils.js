@@ -3,8 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 const jwt = require('jsonwebtoken');
 const OpenAI = require('openai-api');
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const OPENAI_API_KEY = process.env.OPEN_AI_KEY;
@@ -20,6 +20,7 @@ const openai = new OpenAI(OPENAI_API_KEY);
  * 			If the verification passes then we return a user object of info, otherwise we return a token error
  */
 const validateJWT = (auth, res) => {
+	console.log('Process Env Toke', process.env.JWT_TOKEN);
 	let ub = jwt.verify(auth, process.env.JWT_TOKEN, (err, user) => {
 		if (err) {
 			console.log(err);
