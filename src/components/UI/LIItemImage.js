@@ -27,7 +27,7 @@ const LIItemImage = ({ item }) => {
 							{item.start_date} - {item.end_date}
 						</div>
 						<div className='text-sm text-sub-medium'>{item.location || ''}</div>
-						<p contentEditable className='text-sm'>
+						<p contentEditable className='text-sm line-clamp-3'>
 							{item.description || ''}
 						</p>
 					</div>
