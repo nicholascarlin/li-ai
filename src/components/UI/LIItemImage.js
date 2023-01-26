@@ -20,17 +20,20 @@ const LIItemImage = ({ item }) => {
 						src={item.image}
 						alt='Item Icon'
 					/>
-					<div className='flex flex-col py-6'>
+					<div className='flex flex-col py-6 pr-4'>
 						<div className='font-medium'>{item.title}</div>
-						<div className='tezt-sm'>Paylocity - Internship</div>
-						<div className='tezt-sm text-sub-medium'>
+						<div className='text-sm'>Paylocity - Internship</div>
+						<div className='text-sm text-sub-medium'>
 							{item.start_date} - {item.end_date}
 						</div>
-						<div className='tezt-sm text-sub-medium'>{item.location || ''}</div>
+						<div className='text-sm text-sub-medium'>{item.location || ''}</div>
+						<p contentEditable className='text-sm'>
+							{item.description || ''}
+						</p>
 					</div>
 				</div>
 				<div
-					className={`h-8 w-8 ${
+					className={`h-8 w-8 flex-shrink-0 ${
 						isItemActive ? 'border-primary bg-primary' : 'border-sub-medium'
 					} border-2 rounded-full mr-4 transition-all duration-300 flex items-center justify-center`}>
 					{isItemActive ? <AiOutlineCheck className='text-white' /> : null}

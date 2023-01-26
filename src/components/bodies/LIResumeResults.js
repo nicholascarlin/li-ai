@@ -27,6 +27,7 @@ function HandleEducation(education) {
 							title: item.school,
 							start_date: item.starts_at.year,
 							end_date: item.ends_at.year,
+							description: item.description,
 						}}
 					/>
 				);
@@ -49,6 +50,7 @@ function HandleExperiences(experiences) {
 							title: item.school,
 							start_date: item.starts_at.year,
 							end_date: item.ends_at.year,
+							description: item.description,
 						}}
 					/>
 				);
