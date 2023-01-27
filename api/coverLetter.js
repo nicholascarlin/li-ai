@@ -128,7 +128,7 @@ module.exports = async (req, res) => {
 				Discuss why the role you are applying for matches your passion and work history. If ${company?.name} has a mission statement, discuss why that fits your desire to work there.
 				Discuss past work experience and why you are a good fit at the company. You must directly connect your experience to the work of the 
 				company the cover letter is for and reference why you want to work at ${company?.name} specifically. This is the 
-				company: ${company?.name}. The company describes itself as,  ${company?.description} and has a mission of, ${company?.tagline}. This is the information of the person to write the cover letter for: ${str} . 
+				company: ${company?.name}. The company describes itself as,  ${company?.description} and has a mission of, ${company?.tagline}. This is the information of the person to write the cover letter for: ${prompt?.name} . 
 				Make sure the returned cover letter is one that could be displayed in HTML. This means it should include opening and closing HTML tags. Do not include any of the prompt in your response.`,
 			temperature: 0.7,
 			max_tokens: 1500,

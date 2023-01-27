@@ -7,7 +7,7 @@ import TextInput from '../UI/inputs/TextInput';
 
 const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 	const [isButtonLoading, setButtonLoadingStatus] = useState(false);
-	const [coverLetter, setCoverLetter] = useState(null);
+
 	const roleTitleURLRef = createRef();
 	const companyURLRef = createRef();
 	const userURLRef = createRef();
@@ -30,7 +30,6 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 
 		if (data) {
 			console.log('CoverLetter Generate', data);
-			setCoverLetter(data);
 			SetSrcDoc(data);
 		} else {
 			alert('Error Generating Cover Letter');
