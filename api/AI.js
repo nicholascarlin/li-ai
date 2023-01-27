@@ -3,6 +3,7 @@ import { askAI, validateJWT } from './utils';
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
 import { stringify } from 'postcss';
+
 const jwt = require('jsonwebtoken');
 const OpenAI = require('openai-api');
 
@@ -16,7 +17,7 @@ module.exports = async (req, res) => {
 	const openai = new OpenAI(OPENAI_API_KEY);
 	const { wExp, edExp, skills, whoUR, accpHA, linkedinurl } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-	const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+	const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
 	const supabase = createClient(supabaseUrl, supabaseKey);
 	let auth = req.headers.authorization;
 	const user_sub = validateJWT(auth, res);

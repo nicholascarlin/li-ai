@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const OpenAI = require('openai-api');
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const OPENAI_API_KEY = process.env.OPEN_AI_KEY;

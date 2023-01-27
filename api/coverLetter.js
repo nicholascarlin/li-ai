@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 	const openai = new OpenAI(OPENAI_API_KEY);
 	const { linkedinurl, company_url, title_applying_for } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-	const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+	const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
 	const supabase = createClient(supabaseUrl, supabaseKey);
 	let auth = req.headers.authorization;
 	const user_sub = validateJWT(auth, res);
@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
 	if (!isSaved.status) {
 		var options = {
 			method: 'GET',
-			url: `http://localhost:3001/api/liProf`,
+			url: `http://localhost:3000/api/liProf`,
 			headers: {
 				'Content-Type': 'application/json',
 				authorization: req.headers.authorization,

@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
 	const { linkedinurl } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-	const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+	const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
 	const supabase = createClient(supabaseUrl, supabaseKey);
 	let auth = req.headers.authorization;
 	console.log(linkedinurl);

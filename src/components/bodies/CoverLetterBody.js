@@ -12,7 +12,7 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus }) => {
 	const companyURLRef = createRef();
 	const userURLRef = createRef();
 
-	const HandleGenerateCoverLetter = () => {
+	const HandleGenerateCoverLetter = async () => {
 		setButtonLoadingStatus(true);
 		SetGenerationLoadingStatus(true);
 
@@ -22,14 +22,18 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus }) => {
 			return;
 		}
 
-		GenerateCoverLetter(
+		let data = await GenerateCoverLetter(
 			roleTitleURLRef.current.value,
-			'https://linkedin.com/in/' + companyURLRef.current.value,
-			'https://linkedin.com/company/' + userURLRef.current.value
-		).then((data) => {
+			'https://linkedin.com/in/' + userURLRef.current.value,
+			'https://linkedin.com/company/' + companyURLRef.current.value
+		);
+
+		if (data) {
 			console.log('CoverLetter Generate', data);
 			setCoverLetter(data);
-		});
+		} else {
+			alert('Error Generating Cover Letter');
+		}
 
 		setButtonLoadingStatus(false);
 		SetGenerationLoadingStatus(false);

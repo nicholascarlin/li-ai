@@ -20,7 +20,7 @@ const GenerateCoverLetter = async (
 
 		return responseData.data;
 	} else {
-		return 'Uh oh. Somethings gone wrong.';
+		return null;
 	}
 };
 
