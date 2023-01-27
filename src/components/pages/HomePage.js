@@ -10,6 +10,7 @@ const HomePage = () => {
 	const [isLoaded, setLoadingStatus] = useState(true);
 	const [isGenerationLoading, setGenerationLoadingStatus] = useState(false);
 	const [activeWindow, setActiveWindow] = useState('RESUME');
+	const [srcDoc, setSrcDoc] = useState(null);
 
 	return isLoaded ? (
 		<div className='flex flex-col w-full h-screen pb-4 lg:overflow-y-hidden'>
@@ -21,9 +22,10 @@ const HomePage = () => {
 				{activeWindow === 'COVER LETTER' ? (
 					<CoverLetterBodies
 						SetGenerationLoadingStatus={setGenerationLoadingStatus}
+						SetSrcDoc={setSrcDoc}
 					/>
 				) : null}
-				<Frame isSearching={isGenerationLoading} />
+				<Frame isSearching={isGenerationLoading} srcDoc={srcDoc} />
 			</div>
 		</div>
 	) : (

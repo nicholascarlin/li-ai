@@ -12,6 +12,7 @@ const Frame = ({ isSearching, srcDoc }) => {
 				)}
 				{!isSearching && (
 					<iframe
+						title='Doc Display'
 						className='w-full h-full text-xs'
 						srcDoc={srcDoc && srcDoc}></iframe>
 				)}
