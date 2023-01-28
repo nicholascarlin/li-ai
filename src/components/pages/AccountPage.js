@@ -1,10 +1,13 @@
 import { AiFillCaretDown, AiFillCaretLeft } from 'react-icons/ai';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import BackButton from '../UI/buttons/BackButton.js';
+import { supabase } from '../../supabaseClient';
+import { useAuth } from '../../contexts/Auth.js';
 import { useNavigate } from 'react-router-dom';
 
 const AccountPage = () => {
+	let { user } = useAuth();
 	const [activeAccordions, setActiveAccordions] = useState([]);
 
 	const navigate = useNavigate();
@@ -19,6 +22,38 @@ const AccountPage = () => {
 			content: [6, 5, 4, 3, 2, 1],
 		},
 	];
+
+	useEffect(() => {
+		console.log('UE CALLED');
+		FetchCoverLetters();
+	}, []);
+
+	function getSubstring(str, char1, char2) {
+		const char1Index = str.indexOf(char1);
+		const char2Index = str.lastIndexOf(char2);
+		if (char1Index === -1) return '';
+		if (char2Index === -1) return '';
+		return str.substring(char1Index, char2Index);
+	}
+
+	const FetchCoverLetters = async () => {
+		console.log('Fetch Called', user.user.id);
+		const { data, error } = await supabase
+			.from('li_covers')
+			.select()
+			.eq('uuid', user.user.id);
+
+		if (error) {
+			console.log('ERROR', error);
+		}
+
+		if (data) {
+			// console.log('DATA', data);
+			// let tempData = data;
+			let companyName = getSubstring(data[0].cover_letter.split('Dear'));
+			console.log('Company Name', companyName);
+		}
+	};
 
 	return (
 		<div className='w-screen h-screen relative flex flex-col items-center p-10'>
@@ -58,15 +93,7 @@ const AccountPage = () => {
 						</div>
 						{activeAccordions?.includes(itemKey) ? (
 							<div className='p-8 grid grid-cols-4 gap-4'>
-								{item?.content?.map((subItem, subIdx) => {
-									return (
-										<div
-											key={subIdx}
-											className='bg-primary w-10 h-10 justify-self-center'>
-											{subItem}
-										</div>
-									);
-								})}
+								<div>WOULD GO HERE</div>
 							</div>
 						) : null}
 					</div>

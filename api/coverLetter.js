@@ -71,10 +71,17 @@ module.exports = async (req, res) => {
 		SampleData = isSaved.work;
 	}
 	//function to insert resume into supabase
-	const saveCoverLetter = async (uuid, letter_data) => {
-		const { data, error } = await supabase
-			.from('li_covers')
-			.insert({ uuid, cover_letter: letter_data });
+	const saveCoverLetter = async (uuid, letter_data, company) => {
+		console.log('COMPANY COMPANY');
+		console.log('COMPANy NAME', company.name);
+		console.log('POSITION POSITION');
+		console.log('OPOSITION NAME', title_applying_for);
+		const { data, error } = await supabase.from('li_covers').insert({
+			uuid,
+			cover_letter: letter_data,
+			company_name: company.name,
+			position_name: title_applying_for,
+		});
 		if (error) {
 			console.log(error);
 		}
@@ -178,14 +185,17 @@ module.exports = async (req, res) => {
 		const companyData = await getCompany();
 		await insertCompany(companyData);
 		const toReturn = await GenerateAnswer(nobj, companyData);
-		await saveCoverLetter(user_sub, toReturn);
+
 		await updateNumCovers(user_sub)
+		await saveCoverLetter(user_sub, toReturn, companyData);
+
 		res.status(200).send({ data: toReturn });
 	} else {
 		console.log(companyIsSaved.status);
 		const toReturn = await GenerateAnswer(nobj, companyIsSaved.work);
-		await saveCoverLetter(user_sub, toReturn);
+
 		await updateNumCovers(user_sub)
+		await saveCoverLetter(user_sub, toReturn, companyIsSaved.work);
 		res.status(200).send({ data: toReturn });
 	}
 }
