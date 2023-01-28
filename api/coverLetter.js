@@ -49,7 +49,7 @@ module.exports = async (req, res) => {
 		//See if the profile is already in supabase.
 		const isSaved = await checkForSaved(linkedinurl);
 
-		let SampleData;
+		let callingUser;
 		if (!isSaved.status) {
 			var options = {
 				method: 'GET',
@@ -68,9 +68,9 @@ module.exports = async (req, res) => {
 			});
 
 			const nd = await fetchIt.json();
-			SampleData = nd?.data;
+			callingUser = nd?.data;
 		} else {
-			SampleData = isSaved.work;
+			callingUser = isSaved.work;
 		}
 		//function to insert resume into supabase
 		const saveCoverLetter = async (uuid, letter_data, company) => {
@@ -90,11 +90,8 @@ module.exports = async (req, res) => {
 			return;
 		};
 
-		let wExp = SampleData.experiences;
-
 		// Removing extraneous data to keep the obj light
 
-		const workExpVals = [];
 		//This is the first step to cleaning up — generating data for each exp.
 
 		//TODO: Repeat the above process for education
@@ -103,7 +100,7 @@ module.exports = async (req, res) => {
 
 		const nobj = {};
 
-		nobj.work_experiences = SampleData.experiences;
+		nobj.work_experiences = callingUser.experiences;
 
 		/**
 		 *
@@ -118,22 +115,10 @@ module.exports = async (req, res) => {
 			for (let i = 0; i < prompt.work_experiences.length; i++) {
 				companies[i] = prompt.work_experiences[i].company;
 			}
-			let str =
-				prompt.name +
-				' ' +
-				prompt.skills +
-				' ' +
-				prompt.city +
-				' ' +
-				JSON.stringify(prompt.work_experiences) +
-				' ' +
-				JSON.stringify(prompt.education) +
-				JSON.stringify(companies);
-
 			let toReturn = await openai.complete({
 				engine: 'text-davinci-003',
 				prompt: `Given the following information, generate a long form cover letter from the persepctive of someone applying to the company, ${company?.name} for 
-				the role of ${title_applying_for}. Your name is ${SampleData?.full_name} Make sure that the most recent / 
+				the role of ${title_applying_for}. Your name is ${callingUser?.full_name} Make sure that the most recent / 
 				longest experience is the most prominent. The cover letter should be addressed to ${company?.name}, so any greeting (like dear, or hello, 
 				should be addressed to the company.)
 				Make sure the returned cover letter is one that could be displayed in HTML. Be clear, detailed, and professional. Reference specific reasons why the applicant is suited to work at ${company?.name}. Mention the name of the company (${company?.name}) at least once in every paragraph. Use buzzwords like "organized", "dedicated", "passionate". 
@@ -180,9 +165,9 @@ module.exports = async (req, res) => {
 					headers: options.headers,
 				});
 
-				SampleData = await fetchIt.json();
+				callingUser = await fetchIt.json();
 
-				return SampleData;
+				return callingUser;
 			};
 			const companyData = await getCompany();
 			await insertCompany(companyData);
