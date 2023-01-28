@@ -1,58 +1,67 @@
-import { AiFillCaretDown, AiFillCaretLeft } from 'react-icons/ai';
+import {
+	AiFillCaretDown,
+	AiFillCaretLeft,
+	AiOutlineClose,
+} from 'react-icons/ai';
 import React, { useEffect, useState } from 'react';
 
 import BackButton from '../UI/buttons/BackButton.js';
 import { supabase } from '../../supabaseClient';
-import { useAuth } from '../../contexts/Auth.js';
 import { useNavigate } from 'react-router-dom';
 
 const AccountPage = () => {
-	let { user } = useAuth();
 	const [activeAccordions, setActiveAccordions] = useState([]);
 
 	const navigate = useNavigate();
 
+	const [prevResumes, setPrevResumes] = useState(null);
+	const [prevCovers, setPrevCovers] = useState(null);
+
+	const checkAuth = async () => {
+		const isAuthd = await supabase.auth.getSession();
+		console.log(isAuthd);
+		if (isAuthd.data.session) {
+			console.log(isAuthd.data);
+		}
+	};
+
+	const getCurrResumes = async () => {
+		const { data, error } = await supabase.from('li_resumes').select('*');
+		console.log(data, error);
+		setPrevResumes(data);
+		console.log(error);
+	};
+
+	const getCurrCovers = async () => {
+		const { data, error } = await supabase.from('li_covers').select('*');
+		console.log(data, error);
+		setPrevCovers(data);
+		console.log(error);
+	};
+
+	useEffect(() => {
+		checkAuth().then(async () => {
+			await getCurrResumes();
+			await getCurrCovers();
+		});
+	}, []);
+
 	const accordionContent = [
 		{
 			title: 'My Resumes',
-			content: [1, 2, 3, 4, 5, 6],
+			content: prevResumes,
 		},
 		{
 			title: 'My Cover Letters',
-			content: [6, 5, 4, 3, 2, 1],
+			content: prevCovers,
 		},
 	];
 
-	useEffect(() => {
-		console.log('UE CALLED');
-		FetchCoverLetters();
-	}, []);
-
-	function getSubstring(str, char1, char2) {
-		const char1Index = str.indexOf(char1);
-		const char2Index = str.lastIndexOf(char2);
-		if (char1Index === -1) return '';
-		if (char2Index === -1) return '';
-		return str.substring(char1Index, char2Index);
-	}
-
-	const FetchCoverLetters = async () => {
-		console.log('Fetch Called', user.user.id);
-		const { data, error } = await supabase
-			.from('li_covers')
-			.select()
-			.eq('uuid', user.user.id);
-
-		if (error) {
-			console.log('ERROR', error);
-		}
-
-		if (data) {
-			// console.log('DATA', data);
-			// let tempData = data;
-			let companyName = getSubstring(data[0].cover_letter.split('Dear'));
-			console.log('Company Name', companyName);
-		}
+	const HandleDelete = () => {
+		// eslint-disable-next-line no-restricted-globals
+		let isOK = confirm(
+			'Are you sure you want to delete this? This action cannot be undone'
+		);
 	};
 
 	return (
@@ -93,7 +102,25 @@ const AccountPage = () => {
 						</div>
 						{activeAccordions?.includes(itemKey) ? (
 							<div className='p-8 grid grid-cols-4 gap-4'>
-								<div>WOULD GO HERE</div>
+								{item?.content?.map((subItem, subIDX) => {
+									console.log('ITEM', subItem);
+									return (
+										<div className='w-40 h-40 border rounded-lg relative'>
+											<iframe
+												key={subIDX + subItem}
+												className='text-xs object-contain cursor-pointer w-full h-full'
+												srcDoc={
+													subItem?.resume_data || subItem?.cover_letter
+												}></iframe>
+											<AiOutlineClose
+												onClick={() => {
+													HandleDelete();
+												}}
+												className='absolute -top-3 -right-3 rounded-full bg-white border-primary border h-6 w-6 p-1 cursor-pointer'
+											/>
+										</div>
+									);
+								})}
 							</div>
 						) : null}
 					</div>
