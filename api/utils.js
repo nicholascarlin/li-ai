@@ -46,6 +46,19 @@ const seeHowManyMade = async (uuid) => {
 	}
 };
 
+const seeHowManyCovers = async (uuid) => {
+	console.log(uuid);
+	const { data, error } = await supabase
+		.from('li_covers')
+		.select('*')
+		.match({ uuid: uuid });
+	if (error) {
+		return null;
+	} else {
+		return data.length;
+	}
+};
+
 const askAI = async (prompt, temperature) => {
 	let toReturn = await openai.complete({
 		engine: 'text-davinci-003',
@@ -64,4 +77,5 @@ module.exports = {
 	validateJWT,
 	askAI,
 	seeHowManyMade,
+	seeHowManyCovers
 };
