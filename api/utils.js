@@ -46,16 +46,45 @@ const seeHowManyMade = async (uuid) => {
 	}
 };
 
+const insertNewUserToPaidCol = async(uuid)=>{
+	const {data, error} = await supabase.from("users_li").insert({id:uuid, num_purchased:3})
+	if(error){
+		return null
+	} else {
+		return true
+	}
+
+}
+const updateNumCovers = async(uuid)=>{
+	const {data, error} = await supabase.rpc("decrement_num", {
+		user_id:uuid
+	})
+	if(error){
+		console.log(error)
+	}
+}
 const seeHowManyCovers = async (uuid) => {
 	console.log(uuid);
 	const { data, error } = await supabase
-		.from('li_covers')
+		.from('users_li')
 		.select('*')
-		.match({ uuid: uuid });
+		.match({ id: uuid });
 	if (error) {
+		console.log(error)
 		return null;
 	} else {
-		return data.length;
+		if(data[0] === undefined || !data[0]){
+			const didI = await insertNewUserToPaidCol(uuid)
+			if(!didI){
+				return null
+			} else {
+				return 3
+			}
+
+		} else {
+			return data[0].num_purchased;
+		}
+
 	}
 };
 
@@ -77,5 +106,6 @@ module.exports = {
 	validateJWT,
 	askAI,
 	seeHowManyMade,
-	seeHowManyCovers
+	seeHowManyCovers,
+	updateNumCovers
 };

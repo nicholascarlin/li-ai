@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
-import { validateJWT } from './utils';
+import { validateJWT, seeHowManyCovers, updateNumCovers } from './utils';
 const OpenAI = require('openai-api');
 
 module.exports = async (req, res) => {
@@ -14,7 +14,10 @@ module.exports = async (req, res) => {
 	const supabase = createClient(supabaseUrl, supabaseKey);
 	let auth = req.headers.authorization;
 	const user_sub = validateJWT(auth, res);
-
+	const numRemaining = await seeHowManyCovers(user_sub)
+	if(!numRemaining || numRemaining === 0){
+		res.status(400).send({status:false, message:"upgrade account"})
+	} else {
 	if (!linkedinurl || !company_url || !title_applying_for) {
 		res.status(400).send({ status: false, error: 'Invalid input.' });
 	}
@@ -176,12 +179,14 @@ module.exports = async (req, res) => {
 		await insertCompany(companyData);
 		const toReturn = await GenerateAnswer(nobj, companyData);
 		await saveCoverLetter(user_sub, toReturn);
-
+		await updateNumCovers(user_sub)
 		res.status(200).send({ data: toReturn });
 	} else {
 		console.log(companyIsSaved.status);
 		const toReturn = await GenerateAnswer(nobj, companyIsSaved.work);
 		await saveCoverLetter(user_sub, toReturn);
+		await updateNumCovers(user_sub)
 		res.status(200).send({ data: toReturn });
 	}
+}
 };
