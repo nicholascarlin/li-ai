@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 import { AiOutlineCheck } from 'react-icons/ai';
+import NoImage from '../../assets/images/NoImage.png';
 
-const LIItemImage = ({ item }) => {
+const LIItemImage = ({ item, Item, HandleItemToggle }) => {
 	const [isItemActive, setItemStatus] = useState(true);
 	const [isShowMoreActive, setShowMoreStatus] = useState(false);
 
@@ -19,17 +20,17 @@ const LIItemImage = ({ item }) => {
 			</div>
 			<div className='w-full flex justify-between items-center'>
 				<div className='flex'>
-					<img
-						className='w-28 object-contain p-6'
-						src={item.image}
-						alt='Item Icon'
-					/>
+					{item.image !== 'N/A' ? (
+						<img
+							className='w-28 object-contain p-6'
+							src={item.image || NoImage}
+							alt='Item Icon'
+						/>
+					) : null}
 					<div className='flex flex-col py-6 pr-4 relative'>
 						<div className='font-medium'>{item.title}</div>
 						<div className='text-sm'>{item.position || ''}</div>
-						<div className='text-sm text-sub-medium'>
-							{item.start_date} - {item.end_date}
-						</div>
+						<div className='text-sm text-sub-medium'>{item.date}</div>
 						<div className='text-sm text-sub-medium'>{item.location || ''}</div>
 						<p
 							contentEditable={isShowMoreActive}
@@ -42,6 +43,7 @@ const LIItemImage = ({ item }) => {
 				</div>
 				<div
 					onClick={() => {
+						HandleItemToggle(Item);
 						setItemStatus(() => {
 							return !isItemActive;
 						});

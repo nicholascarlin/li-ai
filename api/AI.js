@@ -1,21 +1,14 @@
-import { askAI, validateJWT } from './utils';
-
 import { createClient } from '@supabase/supabase-js';
-import fetch from 'node-fetch';
-import { stringify } from 'postcss';
+import { validateJWT } from './utils';
 
-const jwt = require('jsonwebtoken');
 const OpenAI = require('openai-api');
-
-const strHTML =
-	'<div className="bg-white p-6"> <header className="text-center"> <h1 className="text-3xl font-bold">Your Name</h1> <h2 className="text-2xl font-medium">Job Title</h2> </header> <section className="my-6"> <h3 className="text-lg font-medium">Summary</h3> <p className="text-base">A brief overview of your qualifications and experience.</p> </section> <section className="my-6"> <h3 className="text-lg font-medium">Education</h3> <ul className="list-disc pl-4"> <li className="my-2"> <h4 className="text-base font-medium">Degree and Field of Study</h4> <p className="text-base">University Name</p> <p className="text-base">Graduation Date</p> </li> </ul> </section> <section className="my-6"> <h3 className="text-lg font-medium">Experience</h3> <ul className="list-disc pl-4"> <li className="my-2"> <h4 className="text-base font-medium">Job Title</h4> <p className="text-base">Company Name</p> <p className="text-base">Employment Dates</p> <p className="text-base">Job Description</p> </li> </ul> </section> <section className="my-6"> <h3 className="text-lg font-medium">Skills</h3> <ul className="list-disc pl-4"> <li className="text-base">Skill 1</li> <li className="text-base">Skill 2</li> <li className="text-base">Skill 3</li> </ul> </section> </div>';
 
 module.exports = async (req, res) => {
 	const OPENAI_API_KEY = process.env.OPEN_AI_KEY;
 	//
 
 	const openai = new OpenAI(OPENAI_API_KEY);
-	const { wExp, edExp, skills, whoUR, accpHA, linkedinurl } = req.body;
+	const { wExp, edExp, accpHA, person, linkedinurl } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 	const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
 	const supabase = createClient(supabaseUrl, supabaseKey);
@@ -78,7 +71,6 @@ module.exports = async (req, res) => {
 
 	// Removing extraneous data to keep the obj light
 
-	const workExpVals = [];
 	//This is the first step to cleaning up — generating data for each exp.
 	// for(let i in wExp){
 
@@ -98,10 +90,11 @@ module.exports = async (req, res) => {
 
 	const nobj = {};
 	nobj.education = edExp;
-	nobj.skills = skills;
-	nobj.city = whoUR.city;
+
+	nobj.city = person.city;
 	nobj.work_experiences = wExp;
-	nobj.name = whoUR.full_name;
+	nobj.name = person.full_name;
+	nobj.accomplishments = accpHA;
 
 	/**
 	 *
@@ -118,7 +111,7 @@ module.exports = async (req, res) => {
 		let str =
 			prompt.name +
 			' ' +
-			prompt.skills +
+			prompt.accomplishments +
 			' ' +
 			prompt.city +
 			' ' +

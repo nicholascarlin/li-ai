@@ -32,7 +32,10 @@ const HomePage = () => {
 			<Header SetActiveWindow={setActiveWindow} ActiveWindow={activeWindow} />
 			<div className='w-full h-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
 				{activeWindow === 'RESUME' ? (
-					<ResumeBody SetGenerationLoadingStatus={setGenerationLoadingStatus} />
+					<ResumeBody
+						SetGenerationLoadingStatus={setGenerationLoadingStatus}
+						SetSrcDoc={setSrcDoc}
+					/>
 				) : null}
 				{activeWindow === 'COVER LETTER' ? (
 					<CoverLetterBodies
