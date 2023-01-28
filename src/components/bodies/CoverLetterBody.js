@@ -16,6 +16,9 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 		setButtonLoadingStatus(true);
 		SetGenerationLoadingStatus(true);
 
+		let userURL = userURLRef.current.value;
+		let companyURL = companyURLRef.current.value;
+
 		if (roleTitleURLRef === '' || companyURLRef === '' || userURLRef === '') {
 			setButtonLoadingStatus(false);
 			SetGenerationLoadingStatus(false);
@@ -24,8 +27,8 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 
 		let data = await GenerateCoverLetter(
 			roleTitleURLRef.current.value,
-			'https://linkedin.com/in/' + userURLRef.current.value,
-			'https://linkedin.com/company/' + companyURLRef.current.value
+			'https://linkedin.com/in/' + userURL,
+			'https://linkedin.com/company/' + companyURL
 		);
 
 		if (data) {

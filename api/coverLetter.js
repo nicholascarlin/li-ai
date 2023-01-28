@@ -72,6 +72,7 @@ module.exports = async (req, res) => {
 		} else {
 			callingUser = isSaved.work;
 		}
+		console.log('CALLIING USER', callingUser);
 		//function to insert resume into supabase
 		const saveCoverLetter = async (uuid, letter_data, company) => {
 			console.log('COMPANY COMPANY');
@@ -108,6 +109,7 @@ module.exports = async (req, res) => {
 		 * @returns A fully formatted (theoretical) resume.
 		 */
 		const GenerateAnswer = async (prompt, company) => {
+			console.log('PROMPT PROMPT', prompt);
 			console.log(company?.description);
 			//let str = prompt.name + " " + prompt.skills + " "+ prompt.city + " " + JSON.stringify(prompt.work_experiences)+ " " + JSON.stringify(prompt.education)
 			let companies = [];
