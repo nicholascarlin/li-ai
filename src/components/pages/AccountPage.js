@@ -6,6 +6,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import BackButton from '../UI/buttons/BackButton.js';
+import DocPreview from '../UI/DocPreview.js';
 import { supabase } from '../../supabaseClient';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +17,8 @@ const AccountPage = () => {
 
 	const [prevResumes, setPrevResumes] = useState(null);
 	const [prevCovers, setPrevCovers] = useState(null);
+
+	const [activeDoc, setActiveDoc] = useState(null);
 
 	const checkAuth = async () => {
 		const isAuthd = await supabase.auth.getSession();
@@ -66,6 +69,9 @@ const AccountPage = () => {
 
 	return (
 		<div className='w-screen h-screen relative flex flex-col items-center p-10'>
+			{activeDoc ? (
+				<DocPreview SrcDoc={activeDoc} SetSrcDoc={setActiveDoc} />
+			) : null}
 			<BackButton
 				onClick={() => {
 					navigate('/');
@@ -105,10 +111,15 @@ const AccountPage = () => {
 								{item?.content?.map((subItem, subIDX) => {
 									console.log('ITEM', subItem);
 									return (
-										<div className='w-40 h-40 border rounded-lg relative'>
+										<div className='w-40 h-40 border rounded-lg relative cursor-pointer z-0'>
+											<div
+												onClick={() => {
+													setActiveDoc(subItem);
+												}}
+												className='absolute h-full w-full cursor-pointer z-20 mt-4'></div>
 											<iframe
 												key={subIDX + subItem}
-												className='text-xs object-contain cursor-pointer w-full h-full'
+												className='text-xs object-contain cursor-pointer w-full h-full z-10'
 												srcDoc={
 													subItem?.resume_data || subItem?.cover_letter
 												}></iframe>
