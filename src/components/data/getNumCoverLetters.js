@@ -14,9 +14,9 @@ const getNumCoverLetters = async (linkedinurl) => {
 	if (res.ok) {
 		let responseData = await res.json();
 		console.log(responseData)
-		return responseData.data;
+		return responseData.userCreds;
 	} else {
-		return 'Uh oh. Somethings gone wrong.';
+		return null;
 	}
 };
 

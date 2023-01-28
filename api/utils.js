@@ -56,7 +56,7 @@ const insertNewUserToPaidCol = async(uuid)=>{
 
 }
 const updateNumCovers = async(uuid)=>{
-	const {data, error} = await supabase.rpc("decrement_num", {
+	const {data, error} = await supabase.rpc("decrement_num_if", {
 		user_id:uuid
 	})
 	if(error){

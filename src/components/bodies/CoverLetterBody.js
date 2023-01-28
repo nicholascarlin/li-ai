@@ -40,7 +40,8 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 	};
 
 	return (
-		<div className='h-full w-full flex flex-col items-center justify-center'>
+		<div className='h-full w-full flex flex-col items-center justify-cente relativer'>
+		
 			<TextInput
 				ref={roleTitleURLRef}
 				Placeholder='Role Title'

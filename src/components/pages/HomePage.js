@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CoverLetterBodies from '../bodies/CoverLetterBody';
 import Frame from '../bodies/Frame';
 import Header from '../UI/Header';
 import LoadingPage from './LoadingPage';
 import ResumeBody from '../bodies/ResumeBody';
+import getNumCoverLetters from '../data/getNumCoverLetters';
 
 const HomePage = () => {
 	const [isLoaded, setLoadingStatus] = useState(true);
 	const [isGenerationLoading, setGenerationLoadingStatus] = useState(false);
 	const [activeWindow, setActiveWindow] = useState('RESUME');
 	const [srcDoc, setSrcDoc] = useState(null);
-
+	const [numFreeLeft, setNumFreeLeft] = useState(null)
+	useEffect(()=>{
+		getNumCoverLetters().then((data)=>{
+			setNumFreeLeft(data)
+		})
+	}, [])
 	return isLoaded ? (
 		<div className='flex flex-col w-full h-screen pb-4 lg:overflow-y-hidden'>
+			<div className="left-2 top-2 bg-primary z-[5000] rounded-md absolute px-2 py-2 text-white space-x-2">
+				<span>Num Left</span><span className={`${numFreeLeft && numFreeLeft > 0 && ' text-white'} ${numFreeLeft === 0 && ' text-danger'}`}>{numFreeLeft}</span>
+			</div>
 			<Header SetActiveWindow={setActiveWindow} ActiveWindow={activeWindow} />
 			<div className='w-full h-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
 				{activeWindow === 'RESUME' ? (
