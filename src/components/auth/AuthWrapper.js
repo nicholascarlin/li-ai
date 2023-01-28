@@ -12,6 +12,9 @@ const AuthWrapper = (props) => {
 		if (user) {
 			console.log('USER', user);
 			navigate('/');
+		} else {
+			localStorage.clear()
+			navigate('/');
 		}
 	}, [user]);
 

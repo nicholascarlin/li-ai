@@ -72,7 +72,7 @@ module.exports = async (req, res) => {
 		} else {
 			callingUser = isSaved.work;
 		}
-		console.log('CALLIING USER', callingUser);
+	
 		//function to insert resume into supabase
 		const saveCoverLetter = async (uuid, letter_data, company) => {
 			console.log('COMPANY COMPANY');
@@ -124,7 +124,7 @@ module.exports = async (req, res) => {
 				longest experience is the most prominent. The cover letter should be addressed to ${company?.name}, so any greeting (like dear, or hello, 
 				should be addressed to the company.)
 				Make sure the returned cover letter is one that could be displayed in HTML. Be clear, detailed, and professional. Reference specific reasons why the applicant is suited to work at ${company?.name}. Mention the name of the company (${company?.name}) at least once in every paragraph. Use buzzwords like "organized", "dedicated", "passionate". 
-				Discuss why the role you are applying for matches your passion and work history. If ${company?.name} has a mission statement, discuss why that fits your desire to work there.
+				Discuss why the role you are applying for matches your passion and work history. This is your work history: ${companies} If ${company?.name} has a mission statement, discuss why that fits your desire to work there.
 				Discuss past work experience and why you are a good fit at the company. You must directly connect your experience to the work of the 
 				company the cover letter is for and reference why you want to work at ${company?.name} specifically. This is the 
 				company: ${company?.name}. The company describes itself as,  ${company?.description} and has a mission of, ${company?.tagline}. This is the information of the person to write the cover letter for: ${prompt?.name} . 
