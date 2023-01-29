@@ -6,6 +6,7 @@ import Header from '../UI/Header';
 import LoadingPage from './LoadingPage';
 import ResumeBody from '../bodies/ResumeBody';
 import getNumCoverLetters from '../data/getNumCoverLetters';
+import { useNotification } from '../../contexts/NotificationProvider';
 
 const HomePage = () => {
 	const [isLoaded, setLoadingStatus] = useState(true);
@@ -13,6 +14,7 @@ const HomePage = () => {
 	const [activeWindow, setActiveWindow] = useState('RESUME');
 	const [srcDoc, setSrcDoc] = useState(null);
 	const [numFreeLeft, setNumFreeLeft] = useState(null);
+	const notify = useNotification()
 	useEffect(() => {
 		getNumCoverLetters().then((data) => {
 			setNumFreeLeft(data);
@@ -33,12 +35,14 @@ const HomePage = () => {
 			<div className='w-full h-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
 				{activeWindow === 'RESUME' ? (
 					<ResumeBody
+					notify={notify}
 						SetGenerationLoadingStatus={setGenerationLoadingStatus}
 						SetSrcDoc={setSrcDoc}
 					/>
 				) : null}
 				{activeWindow === 'COVER LETTER' ? (
 					<CoverLetterBodies
+					notify={notify}
 						SetGenerationLoadingStatus={setGenerationLoadingStatus}
 						SetSrcDoc={setSrcDoc}
 					/>

@@ -34,7 +34,7 @@ const AccountPage = () => {
 		setPrevResumes(data);
 		console.log(error);
 	};
-
+	
 	const getCurrCovers = async () => {
 		const { data, error } = await supabase.from('li_covers').select('*');
 		console.log(data, error);
@@ -83,7 +83,7 @@ const AccountPage = () => {
 				return (
 					<div
 						key={itemKey}
-						className='mt-20 w-2/3 flex flex-col border rounded-lg'>
+						className='mt-20 w-2/3 flex flex-col  rounded-lg'>
 						<div
 							onClick={() => {
 								setActiveAccordions(() => {
@@ -98,8 +98,8 @@ const AccountPage = () => {
 									}
 								});
 							}}
-							className='p-4 bg-primary bg-opacity-50 w-full flex justify-between items-center'>
-							<div className=''>{item.title}</div>
+							className='p-4  bg-opacity-50 w-full flex justify-between items-center'>
+							<div className=' border border-gray-300 shadow-sm rounded-md px-2 py-1'>{item.title}</div>
 							{!activeAccordions?.includes(itemKey) ? (
 								<AiFillCaretLeft />
 							) : (
@@ -111,7 +111,7 @@ const AccountPage = () => {
 								{item?.content?.map((subItem, subIDX) => {
 									console.log('ITEM', subItem);
 									return (
-										<div className='w-40 h-40 border rounded-lg relative cursor-pointer z-0'>
+										<div className='w-40 h-40  rounded-lg relative cursor-pointer z-0'>
 											<div
 												onClick={() => {
 													setActiveDoc(subItem);

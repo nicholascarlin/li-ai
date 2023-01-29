@@ -10,7 +10,7 @@ const LabelInput = forwardRef((props, ref) => {
 			<input
 				ref={ref}
 				type={'text'}
-				className='rounded-r-lg border block flex-1 min-w-0 w-full text-sm p-2.5 outline-none border-sub-medium'
+				className='rounded-r-lg  block flex-1 min-w-0 w-full text-sm p-2.5 outline-none border border-gray-300 rounded-sm'
 				placeholder={props.Placeholder || 'placeholder'}
 			/>
 		</div>

@@ -69,7 +69,7 @@ const EventNotification = ({
 		<div
 			onMouseEnter={HandlePauseTimer}
 			onMouseLeave={HandleStartTimer}
-			className={`flex flex-col w-[calc(25vw)] bg-white shadow-lg transition-all duration-300 relative ${
+			className={`flex flex-col w-[calc(25vw)] bg-white shadow-lg transition-all duration-300 relative rounded-md ${
 				!exit ? 'ml-0' : 'ml-[calc(120%)]'
 			}`}>
 			<div className='flex w-full'>
@@ -99,7 +99,7 @@ const EventNotification = ({
 				style={{
 					width: `${timeOutprogress}%`,
 				}}
-				className={`h-1 ${
+				className={`h-1 rounded-bl-md ${
 					NotificationType === 'ERROR'
 						? 'bg-danger'
 						: NotificationType === 'SUCCESS'
