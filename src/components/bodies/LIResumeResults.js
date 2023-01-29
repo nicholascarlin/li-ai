@@ -71,11 +71,11 @@ function HandleEducation(Education, SetEducation, SelectedEducation) {
 						HandleItemToggle={HandleEducationToggle}
 						Item={item}
 						item={{
-							image: item.logo_url,
-							position: item.field_of_study,
+							image: item?.logo_url,
+							position: item?.field_of_study,
 							title: item.school,
-							date: `${item.starts_at.year} - ${item.ends_at.year}`,
-							description: item.description,
+							date: `${item?.starts_at?.year} - ${item?.ends_at?.year}`,
+							description: item?.description,
 						}}
 					/>
 				);
@@ -117,9 +117,9 @@ function HandleExperiences(Experiences, SetExperiences, SelectedExperiences) {
 							position: item.title,
 							title: item.company,
 							date: `${FormatDate(
-								item.starts_at.year,
-								item.starts_at.month
-							)} - ${FormatDate(item.ends_at.year, item.ends_at.month)}`,
+								item?.starts_at?.year,
+								item?.starts_at?.month
+							)} - ${FormatDate(item?.ends_at?.year, item?.ends_at?.month)}`,
 							description: item.description,
 						}}
 					/>
@@ -165,7 +165,7 @@ function HandleAccomplishments(
 							image: 'N/A',
 							position: item.issuer,
 							title: item.title,
-							date: FormatDate(item.issued_on.year, item.issued_on.month),
+							date: FormatDate(item?.issued_on?.year, item?.issued_on?.month),
 							description: item.description,
 						}}
 					/>
