@@ -45,11 +45,7 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc, notify }) =>
 		setButtonLoadingStatus(false);
 		SetGenerationLoadingStatus(false);
 	};
-	notify({
-		type: 'ERROR',
-		header: 'Form Error',
-		body: "Error — check fields are right and you have enough tokens",
-	});
+
 
 	return (
 		<div className='h-5/6 mt-8 w-full flex flex-col items-center justify-cente relativer'>
