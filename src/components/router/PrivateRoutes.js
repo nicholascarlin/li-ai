@@ -6,10 +6,6 @@ const { Outlet, Navigate } = require('react-router-dom');
 const PrivateRoutes = () => {
 	const { user } = useAuth();
 
-	useEffect(() => {
-		console.log('USER', user);
-	});
-
 	return user ? <Outlet /> : <Navigate to='/login' />;
 };
 

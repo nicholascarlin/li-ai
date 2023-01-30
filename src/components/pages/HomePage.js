@@ -14,12 +14,14 @@ const HomePage = () => {
 	const [activeWindow, setActiveWindow] = useState('RESUME');
 	const [srcDoc, setSrcDoc] = useState(null);
 	const [numFreeLeft, setNumFreeLeft] = useState(null);
-	const notify = useNotification()
+	const notify = useNotification();
+
 	useEffect(() => {
 		getNumCoverLetters().then((data) => {
 			setNumFreeLeft(data);
 		});
 	}, [srcDoc, activeWindow]);
+
 	return isLoaded ? (
 		<div className='flex flex-col w-full h-screen pb-4 lg:overflow-y-hidden'>
 			<div className='left-2 top-2 bg-primary z-[5000] rounded-md absolute px-2 py-2 text-white space-x-2'>
@@ -35,14 +37,14 @@ const HomePage = () => {
 			<div className='w-full h-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
 				{activeWindow === 'RESUME' ? (
 					<ResumeBody
-					notify={notify}
+						notify={notify}
 						SetGenerationLoadingStatus={setGenerationLoadingStatus}
 						SetSrcDoc={setSrcDoc}
 					/>
 				) : null}
 				{activeWindow === 'COVER LETTER' ? (
 					<CoverLetterBodies
-					notify={notify}
+						notify={notify}
 						SetGenerationLoadingStatus={setGenerationLoadingStatus}
 						SetSrcDoc={setSrcDoc}
 					/>

@@ -13,8 +13,7 @@ const AuthWrapper = (props) => {
 			console.log('USER', user);
 			navigate('/');
 		} else {
-			localStorage.clear()
-			navigate('/');
+			localStorage.clear();
 		}
 	}, [user]);
 
