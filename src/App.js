@@ -1,3 +1,5 @@
+import '@stripe/stripe-js';
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import AccountPage from './components/pages/AccountPage';
