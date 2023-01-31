@@ -27,6 +27,8 @@ module.exports = async (req, res) => {
 				paymentAmount = 0;
 		}
 
+		console.log('XXXXXXXXXXXXXXXXXXXXXXXX');
+
 		const stripe = require('stripe')(
 			'sk_test_51MVNbqFN14JmEY5dmjMmQRSPfbqqNO7c30tYjHLIwu4ka80Xik78Ca0LLdekQLlJyMy4B3wTXlLT7CJlY1pR476100rVw46tPZ'
 		);

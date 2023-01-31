@@ -3,18 +3,22 @@ import {
 	useElements,
 	useStripe,
 } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import LoadingButton from '../UI/buttons/LoadingButton';
 import Token from '../../assets/images/token.png';
 import { useNotification } from '../../contexts/NotificationProvider';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ SelectedProduct }) => {
 	const stripe = useStripe();
 	const elements = useElements();
 
 	const [message, setMessage] = useState(false);
 	const [isProcessing, setIsProcessing] = useState(false);
+
+	useEffect(() => {
+		console.log('SELECTED PRODUCR', SelectedProduct);
+	}, []);
 
 	let notify = useNotification();
 
@@ -51,7 +55,13 @@ const CheckoutForm = () => {
 			id='payment-form'
 			onSubmit={HandleSubmit}
 			className='w-full h-full flex flex-col items-center justify-around'>
-			{DisplayItemPrice('5 Tokens', '2.99')}
+			{SelectedProduct === 0
+				? DisplayItemPrice('5 Tokens', '2.99')
+				: SelectedProduct === 1
+				? DisplayItemPrice('10 Tokens', '4.99')
+				: SelectedProduct === 2
+				? DisplayItemPrice('20 Tokens', '7.99')
+				: null}
 
 			<PaymentElement className='w-full' />
 

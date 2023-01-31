@@ -28,6 +28,7 @@ const PurchaseOverlay = ({ SetOverlayStatus }) => {
 	}, [paymentStage]);
 
 	const HandleFetchStripeSecret = async () => {
+		console.log('FETCH CALLED');
 		const tempClientSecret = await FetchStripeSecret(selectedOption);
 		console.log('TEMP CLIENT SECRET', tempClientSecret);
 		setClientSecret(tempClientSecret);
@@ -39,8 +40,9 @@ const PurchaseOverlay = ({ SetOverlayStatus }) => {
 	};
 
 	const HandleNextClick = () => {
-		if (paymentStage === 0 && selectedOption) {
-			setPaymentStage(selectedOption);
+		if (paymentStage === 0 && selectedOption !== null) {
+			console.log('Next State', selectedOption);
+			setPaymentStage(1);
 		}
 	};
 
@@ -100,7 +102,7 @@ const PurchaseOverlay = ({ SetOverlayStatus }) => {
 					{paymentStage === 1 ? (
 						clientSecret && stripePromise ? (
 							<Elements stripe={stripePromise} options={{ clientSecret }}>
-								<CheckoutForm />
+								<CheckoutForm SelectedProduct={selectedOption} />
 							</Elements>
 						) : (
 							<div className='w-full h-full flex flex-col items-center justify-center'>

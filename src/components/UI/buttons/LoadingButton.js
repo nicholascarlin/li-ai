@@ -12,7 +12,7 @@ const LoadingButton = ({
 	return (
 		<button
 			onClickCapture={() => {
-				if (!IsLoading) {
+				if (!IsLoading && !IsInactive) {
 					OnClick();
 				}
 			}}
