@@ -27,9 +27,7 @@ const CheckoutForm = ({ SelectedProduct }) => {
 		? SelectedProduct === 2
 		: null;
 
-	const HandleSubmit = async (e) => {
-		e.preventDefault();
-
+	const HandleSubmit = async () => {
 		if (!stripe || !elements) {
 			return;
 		}
@@ -41,6 +39,7 @@ const CheckoutForm = ({ SelectedProduct }) => {
 			confirmParams: {
 				return_url: `${window.location.origin}/completion`,
 			},
+			redirect: 'if_required',
 		});
 
 		if (error) {
@@ -49,7 +48,7 @@ const CheckoutForm = ({ SelectedProduct }) => {
 			// Increment
 			setMessage(`Payment Status: ${paymentIntent.status}`);
 			console.log('ADD CALLED');
-			let res = AddCoverLetters(20);
+			let res = AddCoverLetters(TokensToAdd);
 			console.log('ADD DONE', res);
 
 			notify({
