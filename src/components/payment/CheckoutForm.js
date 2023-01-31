@@ -37,15 +37,19 @@ const CheckoutForm = ({ SelectedProduct }) => {
 		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: `${window.location.origin}/completion`,
+				return_url: `${window.location.origin}/success`,
 			},
 			redirect: 'if_required',
 		});
 
+		console.log('BEFORE IF', paymentIntent);
+
 		if (error) {
+			console.log('WAS AN ERROR');
 			setMessage(error.message);
 		} else if (paymentIntent && paymentIntent.status === 'suceeded') {
 			// Increment
+			console.log('WAS SUCCESFUL');
 			setMessage(`Payment Status: ${paymentIntent.status}`);
 			console.log('ADD CALLED');
 			let res = AddCoverLetters(TokensToAdd);
