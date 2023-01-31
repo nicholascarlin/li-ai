@@ -46,23 +46,46 @@ const seeHowManyMade = async (uuid) => {
 	}
 };
 
-const insertNewUserToPaidCol = async(uuid)=>{
-	const {data, error} = await supabase.from("users_li").insert({id:uuid, num_purchased:3})
-	if(error){
-		return null
+const insertNewUserToPaidCol = async (uuid) => {
+	const { data, error } = await supabase
+		.from('users_li')
+		.insert({ id: uuid, num_purchased: 3 });
+	if (error) {
+		return null;
 	} else {
-		return true
+		return true;
+	}
+};
+const updateNumCovers = async (uuid) => {
+	const { data, error } = await supabase.rpc('decrement_num_if', {
+		user_id: uuid,
+	});
+	if (error) {
+		console.log(error);
+	}
+};
+
+const AddCoverLetters = async (uuid, num) => {
+	let currentNum = await seeHowManyCovers(uuid);
+	let newNum = currentNum + num;
+	const { data, error } = await supabase
+		.from('users_li')
+		.eq('id', uuid)
+		.upsert({
+			num_purchased: newNum,
+		});
+
+	if (error) {
+		console.log(error);
+		return null;
 	}
 
-}
-const updateNumCovers = async(uuid)=>{
-	const {data, error} = await supabase.rpc("decrement_num_if", {
-		user_id:uuid
-	})
-	if(error){
-		console.log(error)
+	if (data) {
+		console.log('HELL YEAH', data);
+		return data;
 	}
-}
+};
+
 const seeHowManyCovers = async (uuid) => {
 	console.log(uuid);
 	const { data, error } = await supabase
@@ -70,21 +93,19 @@ const seeHowManyCovers = async (uuid) => {
 		.select('*')
 		.match({ id: uuid });
 	if (error) {
-		console.log(error)
+		console.log(error);
 		return null;
 	} else {
-		if(data[0] === undefined || !data[0]){
-			const didI = await insertNewUserToPaidCol(uuid)
-			if(!didI){
-				return null
+		if (data[0] === undefined || !data[0]) {
+			const didI = await insertNewUserToPaidCol(uuid);
+			if (!didI) {
+				return null;
 			} else {
-				return 3
+				return 3;
 			}
-
 		} else {
 			return data[0].num_purchased;
 		}
-
 	}
 };
 
@@ -107,5 +128,6 @@ module.exports = {
 	askAI,
 	seeHowManyMade,
 	seeHowManyCovers,
-	updateNumCovers
+	updateNumCovers,
+	AddCoverLetters,
 };

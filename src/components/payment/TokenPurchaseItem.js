@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import Token from '../../assets/images/token.png';
 
 const TokenPurchaseItem = ({
@@ -10,10 +9,6 @@ const TokenPurchaseItem = ({
 	Title,
 	Subtitle,
 }) => {
-	useEffect(() => {
-		console.log('VALUE IS ACTIVE', IsActive);
-	}, []);
-
 	return (
 		<div
 			onClick={() => {

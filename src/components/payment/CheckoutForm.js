@@ -5,6 +5,7 @@ import {
 } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 
+import AddCoverLetters from '../data/AddCoverLetters';
 import LoadingButton from '../UI/buttons/LoadingButton';
 import Token from '../../assets/images/token.png';
 import { useNotification } from '../../contexts/NotificationProvider';
@@ -16,11 +17,15 @@ const CheckoutForm = ({ SelectedProduct }) => {
 	const [message, setMessage] = useState(false);
 	const [isProcessing, setIsProcessing] = useState(false);
 
-	useEffect(() => {
-		console.log('SELECTED PRODUCR', SelectedProduct);
-	}, []);
-
 	let notify = useNotification();
+
+	const TokensToAdd = 5
+		? SelectedProduct === 0
+		: 10
+		? SelectedProduct === 1
+		: 20
+		? SelectedProduct === 2
+		: null;
 
 	const HandleSubmit = async (e) => {
 		e.preventDefault();
@@ -43,6 +48,15 @@ const CheckoutForm = ({ SelectedProduct }) => {
 		} else if (paymentIntent && paymentIntent.status === 'suceeded') {
 			// Increment
 			setMessage(`Payment Status: ${paymentIntent.status}`);
+			console.log('ADD CALLED');
+			let res = AddCoverLetters(20);
+			console.log('ADD DONE', res);
+
+			notify({
+				type: 'SUCCESS',
+				header: 'Payment Succesful',
+				body: 'If tokens do not show, wait a second and refresh',
+			});
 		} else {
 			setMessage('Unexpected State');
 		}
@@ -68,7 +82,7 @@ const CheckoutForm = ({ SelectedProduct }) => {
 			<LoadingButton
 				id='submit'
 				IsLoading={isProcessing}
-				onSubmit={HandleSubmit}
+				OnClick={HandleSubmit}
 				Message={isProcessing ? 'Processing...' : 'Pay Now'}
 				AdditionalButtonStyle='mx-auto w-full py-2 mt-8'
 			/>

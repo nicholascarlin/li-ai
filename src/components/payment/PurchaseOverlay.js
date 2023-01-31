@@ -1,8 +1,8 @@
-import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 
 import { AiOutlineClose } from 'react-icons/ai';
 import CheckoutForm from './CheckoutForm';
+import { Elements } from '@stripe/react-stripe-js';
 import FetchStripeSecret from '../data/FetchStripeSecret';
 import { ImSpinner8 } from 'react-icons/im';
 import LoadingButton from '../UI/buttons/LoadingButton';
@@ -19,7 +19,6 @@ const PurchaseOverlay = ({ SetOverlayStatus }) => {
 	const [clientSecret, setClientSecret] = useState(null);
 	const [paymentStage, setPaymentStage] = useState(0);
 	const [selectedOption, setSelectedOption] = useState(null);
-	const [isScreenLoading, setScreenLoadingStatus] = useState(false);
 
 	useEffect(() => {
 		if (paymentStage === 1) {
@@ -28,20 +27,16 @@ const PurchaseOverlay = ({ SetOverlayStatus }) => {
 	}, [paymentStage]);
 
 	const HandleFetchStripeSecret = async () => {
-		console.log('FETCH CALLED');
 		const tempClientSecret = await FetchStripeSecret(selectedOption);
-		console.log('TEMP CLIENT SECRET', tempClientSecret);
 		setClientSecret(tempClientSecret);
 	};
 
 	const HandleOptionClick = (value) => {
-		console.log('VALUE', value);
 		setSelectedOption(value);
 	};
 
 	const HandleNextClick = () => {
 		if (paymentStage === 0 && selectedOption !== null) {
-			console.log('Next State', selectedOption);
 			setPaymentStage(1);
 		}
 	};
