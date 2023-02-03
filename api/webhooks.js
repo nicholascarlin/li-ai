@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 import { buffer } from 'micro';
 
-// Specific to this API route, only local
+// Specific to this API route, only local, does not effect other APIs
 export const config = {
 	api: {
 		bodyParser: false,
