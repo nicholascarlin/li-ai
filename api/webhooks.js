@@ -39,6 +39,25 @@ export default async function webhookHandler(req, res) {
 		console.log('EVENT', event);
 
 		let client_secret = event.data.object.client_secret;
+		let purchasedAmountCents = event.data.object.amount;
+		let purchasedAmount;
+
+		switch (purchasedAmountCents) {
+			case 299:
+				purchasedAmount = 5;
+				break;
+
+			case 499:
+				purchasedAmount = 10;
+				break;
+
+			case 799:
+				purchasedAmount = 20;
+				break;
+
+			default:
+				purchasedAmount = 0;
+		}
 
 		const { data, error } = await supabase
 			.from('payment_table')
@@ -56,18 +75,19 @@ export default async function webhookHandler(req, res) {
 		let retrievedUUID;
 
 		if (data) {
-			console.log('THIS WORKED?', data[0].uuid);
 			retrievedUUID = data[0].uuid;
 		}
 
-		const { addError } = await supabase.rpc('incrementCoverLetters', {
-			num: 100,
+		const { addError } = await supabase.rpc('incrementcoverletters', {
+			num: purchasedAmount,
 			user_uuid: retrievedUUID,
 		});
 
 		if (addError) {
 			console.log('ADD ERROR', addError);
 			res.status(400).send({ error: addError });
+		} else {
+			console.log('NAH ALL GOOD');
 		}
 
 		if (eventType === 'payment_intent.succeeded') {
