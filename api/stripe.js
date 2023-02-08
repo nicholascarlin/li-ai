@@ -20,22 +20,27 @@ module.exports = async (req, res) => {
 		const uuid = validateJWT(auth, res);
 
 		let paymentAmount;
+		let selectedQuantity;
 
 		switch (selectedOption) {
 			case 0:
 				paymentAmount = 299;
+				selectedQuantity = 5;
 				break;
 
 			case 1:
 				paymentAmount = 499;
+				selectedQuantity = 10;
 				break;
 
 			case 2:
 				paymentAmount = 799;
+				selectedQuantity = 20;
 				break;
 
 			default:
 				paymentAmount = 0;
+				selectedQuantity = 0;
 		}
 
 		const stripe = require('stripe')(
@@ -56,7 +61,7 @@ module.exports = async (req, res) => {
 			uuid: uuid,
 			payment_id: paymentIntent.client_secret,
 			is_paid: false,
-			quantity: paymentAmount,
+			quantity: selectedQuantity,
 		});
 
 		if (error) {
