@@ -38,8 +38,6 @@ module.exports = async (req, res) => {
 				paymentAmount = 0;
 		}
 
-		console.log('XXXXXXXXXXXXXXXXXXXXXXXX');
-
 		const stripe = require('stripe')(
 			'sk_test_51MVNbqFN14JmEY5dmjMmQRSPfbqqNO7c30tYjHLIwu4ka80Xik78Ca0LLdekQLlJyMy4B3wTXlLT7CJlY1pR476100rVw46tPZ'
 		);
@@ -52,8 +50,19 @@ module.exports = async (req, res) => {
 			automatic_payment_methods: {
 				enabled: true,
 			},
-			customer: uuid,
 		});
+
+		const { error } = await supabase.from('payment_table').insert({
+			uuid: uuid,
+			payment_id: paymentIntent.client_secret,
+			is_paid: false,
+			quantity: paymentAmount,
+		});
+
+		if (error) {
+			console.log(error);
+			res.status(400).send({ error: error });
+		}
 
 		res.status(200).send({ data: paymentIntent.client_secret });
 	} catch (e) {
