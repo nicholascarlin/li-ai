@@ -45,7 +45,7 @@ const SignupModule = () => {
 		return;
 	}
 
-	const HandleSignup = (resp) => {
+	const HandleSignup = async (resp) => {
 		if (resp.error) {
 			notify({
 				type: 'ERROR',
@@ -54,7 +54,7 @@ const SignupModule = () => {
 			});
 		}
 
-		getNumCoverLetters();
+		await getNumCoverLetters();
 
 		if (resp.data?.user) {
 			navigate('/login');
@@ -80,19 +80,19 @@ const SignupModule = () => {
 					AdditionalWrapperStyle={styleProps.additionalWrapperStyle}
 					Placeholder={'Email'}
 					ref={emailRef}
-					Type='text'
+					Type="text"
 				/>
 				<TextInput
 					AdditionalWrapperStyle={styleProps.additionalWrapperStyle}
 					Placeholder={'Password'}
 					ref={passwordRef}
-					Type='password'
+					Type="password"
 				/>
 				<TextInput
 					AdditionalWrapperStyle={styleProps.additionalWrapperStyle}
 					Placeholder={'Confirm Password'}
 					ref={confirmationPasswordRef}
-					Type='password'
+					Type="password"
 				/>
 				<LoadingButton
 					AdditionalButtonStyle={styleProps.additionalWrapperStyle}
@@ -111,7 +111,9 @@ const SignupModule = () => {
 					</span>
 				</div>
 
-				<div className={styleProps.footerStyle}>Carlton-Gernét Ltd.</div>
+				<div className={styleProps.footerStyle}>
+					Carlton-Gernét Ltd.
+				</div>
 			</div>
 		</AuthWrapper>
 	);
