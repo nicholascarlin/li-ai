@@ -1,6 +1,7 @@
 import AuthWrapper from './AuthWrapper';
 import LoadingButton from '../UI/buttons/LoadingButton';
 import TextInput from '../UI/inputs/TextInput';
+import getNumCoverLetters from '../data/getNumCoverLetters';
 import { styleProps } from './AuthStyle';
 import { useAuth } from '../../contexts/Auth';
 import { useNavigate } from 'react-router-dom';
@@ -52,6 +53,8 @@ const SignupModule = () => {
 				body: resp.error.message,
 			});
 		}
+
+		getNumCoverLetters();
 
 		if (resp.data?.user) {
 			navigate('/login');
