@@ -1,3 +1,6 @@
+import { createClient } from '@supabase/supabase-js';
+import { validateJWT } from './utils';
+
 module.exports = async (req, res) => {
 	// const stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY, {
 	//     apiVersion: '2022-08-01'
@@ -6,7 +9,15 @@ module.exports = async (req, res) => {
 	// const toReturn = process.env.STRIPE_TEST_SECRET_KEY;
 
 	try {
+		console.log('HITHIT');
 		const selectedOption = req.body;
+
+		const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+		const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
+		const supabase = createClient(supabaseUrl, supabaseKey);
+
+		let auth = req.headers.authorization;
+		const uuid = validateJWT(auth, res);
 
 		let paymentAmount;
 
@@ -41,6 +52,7 @@ module.exports = async (req, res) => {
 			automatic_payment_methods: {
 				enabled: true,
 			},
+			customer: uuid,
 		});
 
 		res.status(200).send({ data: paymentIntent.client_secret });
