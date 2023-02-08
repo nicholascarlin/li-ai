@@ -58,7 +58,7 @@ const SignupModule = () => {
 			notify({
 				type: 'SUCCESS',
 				header: 'Signup Success',
-				body: 'Please confirm your email to sign in',
+				body: 'Account successfully created',
 			});
 		}
 		setLoadingStatus(false);

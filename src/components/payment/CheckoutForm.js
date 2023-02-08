@@ -3,7 +3,7 @@ import {
 	useElements,
 	useStripe,
 } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import AddCoverLetters from '../data/AddCoverLetters';
 import LoadingButton from '../UI/buttons/LoadingButton';
@@ -51,9 +51,6 @@ const CheckoutForm = ({ SelectedProduct }) => {
 			// Increment
 			console.log('WAS SUCCESFUL');
 			setMessage(`Payment Status: ${paymentIntent.status}`);
-			console.log('ADD CALLED');
-			let res = AddCoverLetters(TokensToAdd);
-			console.log('ADD DONE', res);
 
 			notify({
 				type: 'SUCCESS',
