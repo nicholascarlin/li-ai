@@ -38,8 +38,8 @@ const SignupModule = () => {
 			return;
 		}
 
-		signUp({ email, password }).then((resp) => {
-			HandleSignup(resp);
+		signUp({ email, password }).then(async (resp) => {
+			await HandleSignup(resp);
 		});
 		setLoadingStatus(true);
 		return;
