@@ -9,6 +9,7 @@ export const config = {
 };
 
 export default async function webhookHandler(req, res) {
+	console.log('HITHIT');
 	const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY);
 
 	if (req.method === 'POST') {
