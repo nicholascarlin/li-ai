@@ -19,3 +19,19 @@ export const VerifyLinkedInURL = (url) => {
 		return 'Please enter a valid URL';
 	}
 };
+
+export const VerifyLinkedInProfileURL = (url) => {
+	if (!url) return false;
+	const parsedURL = new URL(url);
+	const host = parsedURL.host;
+	const pathname = parsedURL.pathname;
+	return host === 'www.linkedin.com' && pathname.startsWith('/in/');
+};
+
+export const VerifyLinkedInCompanyURL = (url) => {
+	if (!url) return false;
+	const parsedURL = new URL(url);
+	const host = parsedURL.host;
+	const pathname = parsedURL.pathname;
+	return host === 'www.linkedin.com' && pathname.startsWith('/company/');
+};

@@ -1,11 +1,18 @@
 import React, { createRef, useState } from 'react';
+import {
+	VerifyLinkedInCompanyURL,
+	VerifyLinkedInProfileURL,
+} from '../utils/FormInputVerification';
 
 import GenerateCoverLetter from '../data/generation/GenerateCoverLetter';
-import LabelInput from '../UI/inputs/LabelInput';
 import LoadingButton from '../UI/buttons/LoadingButton';
 import TextInput from '../UI/inputs/TextInput';
 
-const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc, notify }) => {
+const CoverLetterBodies = ({
+	SetGenerationLoadingStatus,
+	SetSrcDoc,
+	notify,
+}) => {
 	const [isButtonLoading, setButtonLoadingStatus] = useState(false);
 
 	const roleTitleURLRef = createRef();
@@ -19,7 +26,14 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc, notify }) =>
 		let userURL = userURLRef.current.value;
 		let companyURL = companyURLRef.current.value;
 
-		if (roleTitleURLRef === '' || companyURLRef === '' || userURLRef === '') {
+		let isUserURLValid = VerifyLinkedInProfileURL(userURL);
+
+		let isCompanyURLValid = VerifyLinkedInCompanyURL(companyURL);
+
+		if (roleTitleURLRef === '' || !isCompanyURLValid || !isUserURLValid) {
+			alert(
+				'Please verify inputs and try again. Copy the company URL and your profile URL from your browser'
+			);
 			setButtonLoadingStatus(false);
 			SetGenerationLoadingStatus(false);
 			return;
@@ -27,8 +41,8 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc, notify }) =>
 
 		let data = await GenerateCoverLetter(
 			roleTitleURLRef.current.value,
-			'https://linkedin.com/in/' + userURL,
-			'https://linkedin.com/company/' + companyURL
+			userURL,
+			companyURL
 		);
 
 		if (data) {
@@ -38,14 +52,13 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc, notify }) =>
 			notify({
 				type: 'ERROR',
 				header: 'Form Error',
-				body: "Error — check fields are right and you have enough tokens",
+				body: 'Error — check fields are right and you have enough tokens',
 			});
 		}
 
 		setButtonLoadingStatus(false);
 		SetGenerationLoadingStatus(false);
 	};
-
 
 	return (
 		<div className='h-5/6 mt-8 w-full flex flex-col items-center justify-cente relativer'>
@@ -54,16 +67,14 @@ const CoverLetterBodies = ({ SetGenerationLoadingStatus, SetSrcDoc, notify }) =>
 				Placeholder='Role Title'
 				AdditionalWrapperStyle='mt-4 w-2/3 shadow-sm'
 			/>
-			<LabelInput
+			<TextInput
 				ref={companyURLRef}
-				Label='https://linkedin.com/company/'
-				Placeholder='Company LinkedIn Handle'
+				Placeholder='Company LinkedIn URL'
 				AdditionalWrapperStyle='mt-4 w-2/3 shadow-sm'
 			/>
-			<LabelInput
+			<TextInput
 				ref={userURLRef}
-				Label='https://linkedin.com/in/'
-				Placeholder='Your LinkedIn Username'
+				Placeholder='Your Profile URL'
 				AdditionalWrapperStyle='mt-4 w-2/3 shadow-sm'
 			/>
 			<LoadingButton

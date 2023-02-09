@@ -3,8 +3,9 @@ import React, { createRef, useState } from 'react';
 import FetchLIProfileData from '../data/FetchLIProfileData';
 import GenerateResume from '../data/generation/GenerateResume';
 import LIResumeResults from './LIResumeResults';
-import LabelInput from '../UI/inputs/LabelInput';
 import LoadingButton from '../UI/buttons/LoadingButton';
+import TextInput from '../UI/inputs/TextInput';
+import { VerifyLinkedInProfileURL } from '../utils/FormInputVerification';
 
 const ResumeBody = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 	const [isSearchButtonLoading, setSearchButtonLoadingStatus] = useState(false);
@@ -27,20 +28,19 @@ const ResumeBody = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 		setSearchButtonLoadingStatus(true);
 		SetGenerationLoadingStatus(true);
 
-		if (userURLRef.current.value === '') {
+		let userURL = userURLRef.current.value.toString();
+		let isProfileURLValid = VerifyLinkedInProfileURL(userURL);
+
+		if (!isProfileURLValid) {
 			alert('Please provide a valid LinkedIn URL');
 			setSearchButtonLoadingStatus(false);
 			SetGenerationLoadingStatus(false);
 			return;
 		}
 
-		let userURL = userURLRef.current.value.toString();
+		const profileData = await FetchLIProfileData(userURL);
 
-		const profileData = await FetchLIProfileData(
-			'https://linkedin.com/in/' + userURL
-		);
-
-		setLinkedInURL('https://linkedin.com/in/' + userURL);
+		setLinkedInURL(userURL);
 
 		setLIProfileData(profileData);
 		setExperiences(profileData.experiences);
@@ -88,10 +88,9 @@ const ResumeBody = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 
 	return (
 		<div className='w-full h-5/6 overflow-y-scroll flex flex-col items-center mt-8'>
-			<LabelInput
+			<TextInput
 				ref={userURLRef}
-				Label='https://linkedin.com/in/'
-				Placeholder='Your LinkedIn Username'
+				Placeholder='Your LinkedIn Profile URL'
 				AdditionalWrapperStyle='mt-4 w-2/3'
 			/>
 			<LoadingButton
