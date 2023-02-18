@@ -22,6 +22,7 @@ const SignupModule = () => {
 	const notify = useNotification();
 
 	async function handleSubmit(e) {
+
 		setLoadingStatus(true);
 
 		const email = emailRef.current.value;
@@ -46,6 +47,8 @@ const SignupModule = () => {
 	}
 
 	const HandleSignup = async (resp) => {
+	
+
 		if (resp.error) {
 			notify({
 				type: 'ERROR',
@@ -54,9 +57,11 @@ const SignupModule = () => {
 			});
 		}
 
-		await getNumCoverLetters();
+		
 
 		if (resp.data?.user) {
+			localStorage.setItem('auth', resp?.data?.session?.access_token);
+			await getNumCoverLetters()
 			navigate('/login');
 			notify({
 				type: 'SUCCESS',
