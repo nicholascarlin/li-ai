@@ -61,7 +61,7 @@ const CoverLetterBodies = ({
 	};
 
 	return (
-		<div className='h-5/6 mt-8 w-full flex flex-col items-center justify-cente relativer'>
+		<div className=' mt-8 w-full flex flex-col items-center justify-cente relativer'>
 			<TextInput
 				ref={roleTitleURLRef}
 				Placeholder='Role Title'

@@ -32,7 +32,7 @@ const HomePage = () => {
 				<PurchaseOverlay SetOverlayStatus={setPurchaseOverlayStatus} />
 			) : null}
 			<div className='left-2 top-2 absolute flex items-center'>
-				<div className='bg-primary z-[5000] rounded-md px-2 py-2 text-white space-x-2'>
+				<div className='bg-primary z-[5000] rounded-md md:px-2 md:py-2 px-1 py-1 text-white space-x-2 relative'>
 					<span>Cover Letters Remaining:</span>
 					<span
 						className={`${numFreeLeft && numFreeLeft > 0 && ' text-white'} ${

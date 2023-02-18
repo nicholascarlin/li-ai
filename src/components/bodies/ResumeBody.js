@@ -87,11 +87,11 @@ const ResumeBody = ({ SetGenerationLoadingStatus, SetSrcDoc }) => {
 	};
 
 	return (
-		<div className='w-full h-5/6 overflow-y-scroll flex flex-col items-center mt-8'>
+		<div className='w-full flex flex-col items-center md:mt-8'>
 			<TextInput
 				ref={userURLRef}
 				Placeholder='Your LinkedIn Profile URL'
-				AdditionalWrapperStyle='mt-4 w-2/3'
+				AdditionalWrapperStyle='mt-4 w-2/3 z-10'
 			/>
 			<LoadingButton
 				OnClick={HandleUserSearch}

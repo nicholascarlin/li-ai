@@ -42,8 +42,8 @@ const PurchaseOverlay = ({ SetOverlayStatus }) => {
 	};
 
 	return (
-		<div className='w-screen h-screen backdrop-blur-sm rounded-md  fixed flex items-center justify-center z-10 -mt-10'>
-			<div className='w-1/2 h-4/5 relative'>
+		<div className='w-screen h-screen backdrop-blur-sm rounded-md  fixed flex items-center justify-center z-[100] -mt-10'>
+			<div className='md:w-1/2 w-2/3 h-4/5 relative'>
 				<AiOutlineClose
 					onClick={() => {
 						SetOverlayStatus(null);

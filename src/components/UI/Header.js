@@ -21,7 +21,7 @@ const Header = ({ SetActiveWindow, ActiveWindow }) => {
 
 	return (
 		<div
-			className={`w-full md:pt-8 md:pb-4 pt-8 flex flex-col-reverse md:flex-col md:grid md:grid-cols-3 items-center`}>
+			className={`w-full md:pt-8 md:pb-4 pt-16 flex flex-col-reverse md:flex-col md:grid md:grid-cols-3 items-center`}>
 			<div className='col-start-2 align-center flex items-center justify-center mx-auto gap-4 h-full'>
 				<ActiveButton
 					IsActive={ActiveWindow === 'RESUME'}
