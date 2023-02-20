@@ -21,7 +21,7 @@ const LIResumeResults = ({
 	isButtonLoading,
 }) => {
 	return (
-		<div className='w-full flex flex-col items-center space-y-6'>
+		<div className='w-full flex flex-col items-center space-y-6 relative'>
 			<>{HandleExperiences(Experiences, SetExperiences, SelectedExperiences)}</>
 			<>{HandleEducation(Education, SetEducation, SelectedEducation)}</>
 			<>
@@ -35,7 +35,7 @@ const LIResumeResults = ({
 				OnClick={HandleGenerateResume}
 				Message='Generate'
 				IsSecondary={true}
-				AdditionalButtonStyle='w-32 my-4 py-2'
+				AdditionalButtonStyle='w-32 my-4 py-2 fixed bg-white bottom-0'
 				IsLoading={isButtonLoading}
 			/>
 		</div>
