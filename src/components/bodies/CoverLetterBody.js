@@ -74,7 +74,7 @@ const CoverLetterBodies = ({
 			/>
 			<TextInput
 				ref={userURLRef}
-				Placeholder='Your Profile URL'
+				Placeholder='Your LinkedIn Profile URL'
 				AdditionalWrapperStyle='mt-4 w-2/3 shadow-sm'
 			/>
 			<LoadingButton
