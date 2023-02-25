@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 	const OPENAI_API_KEY = process.env.OPEN_AI_KEY;
 	//
 
-	console.log("here")
+
 	const openai = new OpenAI(OPENAI_API_KEY);
 	const { wExp, edExp, accpHA, person, linkedinurl } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
 	};
 
 	const checkForSaved = async () => {
-		console.log("POOP")
+
 		const { data, error } = await supabase
 			.from('li_bot')
 			.select('*')
@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
 		}
 		if (data[0] !== undefined) {
 			if (data[0].work_experience) {
-				console.log('Good!');
+	
 				return { status: true, work: data[0].work_experience };
 			} else {
 				return { status: false };
@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
 
 	for (let j in wExp) {
 		if (SampleData.experiences.includes(wExp[j])) {
-			console.log('Good');
+		
 		} else {
 			console.log('Unauthorized..');
 		}
@@ -93,7 +93,7 @@ module.exports = async (req, res) => {
 	//TODO: Repeat the above process for education
 	//TODO: Repeat the process for each relevant field
 	//TODO make it such that you can insert the responses into a resume template.
-	console.log("Here 2")
+
 	const nobj = {};
 	nobj.education = edExp;
 
@@ -126,7 +126,7 @@ module.exports = async (req, res) => {
 			' ' +
 			JSON.stringify(prompt.education) +
 			JSON.stringify(companies);
-		console.log(companies)
+
 		let toReturn = await openai.complete({
 			engine: 'text-davinci-003',
 			prompt: `Given the following string, generate a resume. 
@@ -148,7 +148,7 @@ module.exports = async (req, res) => {
 	};
 
 	const toReturn = await GenerateAnswer(nobj);
-	console.log(toReturn)
+	
 	await saveResume(user_sub, toReturn);
 	res.status(200).send({ data: toReturn });
 };
