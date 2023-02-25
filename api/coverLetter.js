@@ -30,6 +30,8 @@ module.exports = async (req, res) => {
 		let c_url = company_url.replace(/\/$/, '').trim();
 		c_url = c_url.replace(/\s+/g, '');
 
+		console.log('CURL', c_url);
+
 		const checkForSaved = async (url) => {
 			const { data, error } = await supabase
 				.from('li_bot')
