@@ -1,15 +1,7 @@
-import { askAI, validateJWT } from './utils';
-
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
 
-const jwt = require('jsonwebtoken');
-const OpenAI = require('openai-api');
-
 module.exports = async (req, res) => {
-	const OPENAI_API_KEY = process.env.OPEN_AI_KEY;
-	//
-
 	const { linkedinurl } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 	const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
@@ -54,7 +46,7 @@ module.exports = async (req, res) => {
 	if (!isSaved.status) {
 		var options = {
 			method: 'GET',
-			url: `https://nubela.co/proxycurl/api/v2/linkedin?url=${linkedinurl}/&fallback_to_cache=on-error&use_cache=if-recent&skills=include&inferred_salary=include&personal_email=include&personal_contact_number=include&twitter_profile_id=include&facebook_profile_id=include&github_profile_id=include&extra=include`,
+			url: `https://nubela.co/proxycurl/api/v2/linkedin?url=${linkedinurl}&fallback_to_cache=on-error&use_cache=if-recent&skills=include&inferred_salary=include&personal_email=include&personal_contact_number=include&twitter_profile_id=include&facebook_profile_id=include&github_profile_id=include&extra=include`,
 			headers: {
 				Accept: 'application/json',
 				Authorization: 'Bearer 4lfOliLcJl_GvgcrLomQrA',
