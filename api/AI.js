@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
 	const OPENAI_API_KEY = process.env.OPEN_AI_KEY;
 	//
 
+	console.log("here")
 	const openai = new OpenAI(OPENAI_API_KEY);
 	const { wExp, edExp, accpHA, person, linkedinurl } = req.body;
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
@@ -26,6 +27,7 @@ module.exports = async (req, res) => {
 	};
 
 	const checkForSaved = async () => {
+		console.log("POOP")
 		const { data, error } = await supabase
 			.from('li_bot')
 			.select('*')
@@ -91,7 +93,7 @@ module.exports = async (req, res) => {
 	//TODO: Repeat the above process for education
 	//TODO: Repeat the process for each relevant field
 	//TODO make it such that you can insert the responses into a resume template.
-
+	console.log("Here 2")
 	const nobj = {};
 	nobj.education = edExp;
 
@@ -105,13 +107,14 @@ module.exports = async (req, res) => {
 	 * @param {*} prompt prompt of users linkedin info
 	 * @returns A fully formatted (theoretical) resume.
 	 */
-	const GenerateAnswer = async (prompt) => {
+	const GenerateAnswer = async(prompt) => {
 		//let str = prompt.name + " " + prompt.skills + " "+ prompt.city + " " + JSON.stringify(prompt.work_experiences)+ " " + JSON.stringify(prompt.education)
 		let companies = [];
-		console.log(prompt);
+	
 		for (let i = 0; i < prompt.work_experiences.length; i++) {
 			companies[i] = prompt.work_experiences[i].company;
 		}
+
 		let str =
 			prompt.name +
 			' ' +
@@ -123,7 +126,7 @@ module.exports = async (req, res) => {
 			' ' +
 			JSON.stringify(prompt.education) +
 			JSON.stringify(companies);
-
+		console.log(companies)
 		let toReturn = await openai.complete({
 			engine: 'text-davinci-003',
 			prompt: `Given the following string, generate a resume. 
@@ -135,16 +138,17 @@ module.exports = async (req, res) => {
 			Make sections of the resume clear.
 			This is the data to build the resume off of:${str}. The subtitles in "work-experience" should be the names of the companies: ${companies}, with the role at each company listed below the company name.`,
 			temperature: 0.6,
-			max_tokens: 1800,
+			max_tokens: 1400,
 			top_p: 1,
 			frequency_penalty: 0,
 			presence_penalty: 0,
 		});
-
+	
 		return toReturn.data.choices[0].text;
 	};
 
 	const toReturn = await GenerateAnswer(nobj);
+	console.log(toReturn)
 	await saveResume(user_sub, toReturn);
 	res.status(200).send({ data: toReturn });
 };
