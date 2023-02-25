@@ -24,7 +24,6 @@ module.exports = async (req, res) => {
 			res.status(400).send({ status: false, error: 'Invalid input.' });
 		}
 
-		// const liurl = linkedinurl.replace(/\/$/, '').trim();
 		let li_url = linkedinurl.trim();
 		li_url += linkedinurl.endsWith('/') ? '' : '/';
 		const c_url = company_url.replace(/\/$/, '').trim();
