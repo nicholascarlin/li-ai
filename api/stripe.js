@@ -2,12 +2,6 @@ import { createClient } from '@supabase/supabase-js';
 import { validateJWT } from './utils';
 
 module.exports = async (req, res) => {
-	// const stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY, {
-	//     apiVersion: '2022-08-01'
-	// })
-
-	// const toReturn = process.env.STRIPE_TEST_SECRET_KEY;
-
 	try {
 		console.log('HITHIT');
 		const selectedOption = req.body;
@@ -43,9 +37,9 @@ module.exports = async (req, res) => {
 				selectedQuantity = 0;
 		}
 
-		const stripe = require('stripe')(
-			'sk_test_51MVNbqFN14JmEY5dmjMmQRSPfbqqNO7c30tYjHLIwu4ka80Xik78Ca0LLdekQLlJyMy4B3wTXlLT7CJlY1pR476100rVw46tPZ'
-		);
+		console.log('KEYKEYKEY', process.env.STRIPE_LIVE_SECRET_KEY);
+
+		const stripe = require('stripe')(process.env.STRIPE_LIVE_SECRET_KEY);
 
 		console.log('Requested Amount', paymentAmount);
 

@@ -24,6 +24,11 @@ module.exports = async (req, res) => {
 			res.status(400).send({ status: false, error: 'Invalid input.' });
 		}
 
+		// const liurl = linkedinurl.replace(/\/$/, '').trim();
+		let li_url = linkedinurl.trim();
+		li_url += linkedinurl.endsWith('/') ? '' : '/';
+		const c_url = company_url.replace(/\/$/, '').trim();
+
 		const checkForSaved = async (url) => {
 			const { data, error } = await supabase
 				.from('li_bot')
@@ -46,8 +51,9 @@ module.exports = async (req, res) => {
 				return { status: false };
 			}
 		};
+
 		//See if the profile is already in supabase.
-		const isSaved = await checkForSaved(linkedinurl);
+		const isSaved = await checkForSaved(li_url);
 
 		let callingUser;
 		if (!isSaved.status) {
@@ -63,7 +69,7 @@ module.exports = async (req, res) => {
 				method: 'POST',
 				headers: options.headers,
 				body: JSON.stringify({
-					linkedinurl: linkedinurl,
+					linkedinurl: li_url,
 				}),
 			});
 
@@ -72,7 +78,7 @@ module.exports = async (req, res) => {
 		} else {
 			callingUser = isSaved.work;
 		}
-	
+
 		//function to insert resume into supabase
 		const saveCoverLetter = async (uuid, letter_data, company) => {
 			console.log('COMPANY COMPANY');
@@ -139,12 +145,12 @@ module.exports = async (req, res) => {
 			return toReturn.data.choices[0].text;
 		};
 
-		const companyIsSaved = await checkForSaved(company_url);
+		const companyIsSaved = await checkForSaved(c_url);
 
 		if (!companyIsSaved.status) {
 			const insertCompany = async (sampleData) => {
 				const { data, error } = await supabase.from('li_bot').insert({
-					linkedin_url: company_url,
+					linkedin_url: c_url,
 					work_experience: sampleData,
 					is_company: true,
 				});
@@ -156,7 +162,7 @@ module.exports = async (req, res) => {
 				console.log('Fetching data...');
 				var options = {
 					method: 'GET',
-					url: `https://nubela.co/proxycurl/api/linkedin/company?resolve_numeric_id=true&extra=include&url=${company_url}&use_cache=if-present`,
+					url: `https://nubela.co/proxycurl/api/linkedin/company?resolve_numeric_id=true&extra=include&url=${c_url}&use_cache=if-present`,
 					headers: {
 						Accept: 'application/json',
 						Authorization: 'Bearer 4lfOliLcJl_GvgcrLomQrA',

@@ -5,7 +5,6 @@ import {
 } from '@stripe/react-stripe-js';
 import React, { useState } from 'react';
 
-import AddCoverLetters from '../data/AddCoverLetters';
 import LoadingButton from '../UI/buttons/LoadingButton';
 import Token from '../../assets/images/token.png';
 import { useNotification } from '../../contexts/NotificationProvider';
@@ -18,14 +17,6 @@ const CheckoutForm = ({ SelectedProduct }) => {
 	const [isProcessing, setIsProcessing] = useState(false);
 
 	let notify = useNotification();
-
-	const TokensToAdd = 5
-		? SelectedProduct === 0
-		: 10
-		? SelectedProduct === 1
-		: 20
-		? SelectedProduct === 2
-		: null;
 
 	const HandleSubmit = async () => {
 		if (!stripe || !elements) {

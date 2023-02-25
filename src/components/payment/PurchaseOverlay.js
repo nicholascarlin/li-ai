@@ -12,7 +12,7 @@ import { loadStripe } from '@stripe/stripe-js';
 // Publishable Key
 
 const stripePromise = loadStripe(
-	'pk_test_51MVNbqFN14JmEY5d3NzRjKgI6auo9rRG8rlXc3p8l3z4kEmpVTAIe145QzdYxJyLoftwzDUl4Zxngs6FIlOH5FJu00ofY2w4OX'
+	'pk_live_51MVNbqFN14JmEY5drMNNCS8EXRpfy5E6S7xAXLF7GE3NrgYbt7e4s9nPFOj9QlXkRglBgL2YLvgYwKDD99l5U5jW00gzBfMsc3'
 );
 
 const PurchaseOverlay = ({ SetOverlayStatus }) => {

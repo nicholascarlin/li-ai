@@ -11,7 +11,7 @@ export const config = {
 
 export default async function webhookHandler(req, res) {
 	console.log('HITHIT');
-	const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY);
+	const stripe = new Stripe(process.env.STRIPE_LIVE_SECRET_KEY);
 
 	const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 	const supabaseKey = process.env.REACT_APP_SUPABASE_SERVICE_KEY;
@@ -20,7 +20,7 @@ export default async function webhookHandler(req, res) {
 	if (req.method === 'POST') {
 		const buf = await buffer(req);
 		const sig = req.headers['stripe-signature'];
-		const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET;
+		const webhookSecret = process.env.STRIPE_LIVE_WEBHOOK_SIGNING_SECRET;
 		// const webhookSecret =
 		// 	'whsec_93b82ef52551dd83c1602f306809c1f389f913b989ac50165a7e68791d158c5b';
 
