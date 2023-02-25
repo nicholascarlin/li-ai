@@ -62,7 +62,7 @@ module.exports = async (req, res) => {
 		if (!isSaved.status) {
 			var options = {
 				method: 'GET',
-				url: `/api/liProf`,
+				url: `https://www.applicantai.com/api/liProf`,
 				headers: {
 					'Content-Type': 'application/json',
 					authorization: req.headers.authorization,
