@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
 		if (!isSaved.status) {
 			var options = {
 				method: 'GET',
-				url: `http://localhost:3000/api/liProf`,
+				url: `/api/liProf`,
 				headers: {
 					'Content-Type': 'application/json',
 					authorization: req.headers.authorization,

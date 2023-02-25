@@ -36,7 +36,7 @@ const ForgotPasswordModule = () => {
 			const resp = await supabase.auth.resetPasswordForEmail(
 				emailRef.current.value,
 				{
-					redirectTo: 'http://localhost:3000/reset-password',
+					redirectTo: 'http://www.applicantai.com/reset-password',
 				}
 			);
 
