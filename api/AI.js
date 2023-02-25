@@ -15,17 +15,21 @@ module.exports = async (req, res) => {
 	let auth = req.headers.authorization;
 	const user_sub = validateJWT(auth, res);
 
+	let li_url = linkedinurl.trim();
+	li_url += linkedinurl.endsWith('/') ? '' : '/';
+	li_url = li_url.replace(/\s+/g, '');
+
 	const addToSupabase = async (work_experiences) => {
 		const { data, error } = await supabase
 			.from('li_bot')
-			.insert({ linkedin_url: linkedinurl, work_experience: work_experiences });
+			.insert({ linkedin_url: li_url, work_experience: work_experiences });
 	};
 
 	const checkForSaved = async () => {
 		const { data, error } = await supabase
 			.from('li_bot')
 			.select('*')
-			.eq('linkedin_url', linkedinurl);
+			.eq('linkedin_url', li_url);
 		if (error) {
 			console.log(error);
 			res.status(400).send({ error: error });

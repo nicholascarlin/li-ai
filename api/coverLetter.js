@@ -26,7 +26,9 @@ module.exports = async (req, res) => {
 
 		let li_url = linkedinurl.trim();
 		li_url += linkedinurl.endsWith('/') ? '' : '/';
-		const c_url = company_url.replace(/\/$/, '').trim();
+		li_url = li_url.replace(/\s+/g, '');
+		let c_url = company_url.replace(/\/$/, '').trim();
+		c_url = c_url.replace(/\s+/g, '');
 
 		const checkForSaved = async (url) => {
 			const { data, error } = await supabase
