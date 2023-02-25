@@ -24,16 +24,16 @@ const Header = ({ SetActiveWindow, ActiveWindow }) => {
 			className={`w-full md:pt-8 md:pb-4 pt-16 flex flex-col-reverse md:flex-col md:grid md:grid-cols-3 items-center`}>
 			<div className='col-start-2 align-center flex items-center justify-center mx-auto gap-4 h-full'>
 				<ActiveButton
-					IsActive={ActiveWindow === 'RESUME'}
-					Value={'RESUME'}
-					SetState={SetActiveWindow}
-					Message='Generate Resume'
-				/>
-				<ActiveButton
 					IsActive={ActiveWindow === 'COVER LETTER'}
 					Value={'COVER LETTER'}
 					SetState={SetActiveWindow}
 					Message='Generate Cover Letter'
+				/>
+				<ActiveButton
+					IsActive={ActiveWindow === 'RESUME'}
+					Value={'RESUME'}
+					SetState={SetActiveWindow}
+					Message='Generate Resume'
 				/>
 			</div>
 

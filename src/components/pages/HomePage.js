@@ -13,7 +13,7 @@ import { useNotification } from '../../contexts/NotificationProvider';
 const HomePage = () => {
 	const [isLoaded, setLoadingStatus] = useState(true);
 	const [isGenerationLoading, setGenerationLoadingStatus] = useState(false);
-	const [activeWindow, setActiveWindow] = useState('RESUME');
+	const [activeWindow, setActiveWindow] = useState('COVER LETTER');
 	const [srcDoc, setSrcDoc] = useState(null);
 	const [numFreeLeft, setNumFreeLeft] = useState(null);
 	const [isPurchaseOverlayActive, setPurchaseOverlayStatus] = useState(false);
