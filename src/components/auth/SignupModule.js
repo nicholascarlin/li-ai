@@ -22,7 +22,6 @@ const SignupModule = () => {
 	const notify = useNotification();
 
 	async function handleSubmit(e) {
-
 		setLoadingStatus(true);
 
 		const email = emailRef.current.value;
@@ -47,8 +46,6 @@ const SignupModule = () => {
 	}
 
 	const HandleSignup = async (resp) => {
-	
-
 		if (resp.error) {
 			notify({
 				type: 'ERROR',
@@ -57,11 +54,9 @@ const SignupModule = () => {
 			});
 		}
 
-		
-
 		if (resp.data?.user) {
 			localStorage.setItem('auth', resp?.data?.session?.access_token);
-			await getNumCoverLetters()
+			await getNumCoverLetters();
 			navigate('/login');
 			notify({
 				type: 'SUCCESS',
@@ -75,6 +70,7 @@ const SignupModule = () => {
 	return (
 		<AuthWrapper>
 			<div className={styleProps.wrapperStyle}>
+				<div className={styleProps.logoStyle}>APPLICANT AI</div>
 				<div className={styleProps.additionalWrapperStyle}>
 					<div className={styleProps.headerStyle}>Sign Up</div>
 					<div className={styleProps.subheaderStyle}>
@@ -85,19 +81,19 @@ const SignupModule = () => {
 					AdditionalWrapperStyle={styleProps.additionalWrapperStyle}
 					Placeholder={'Email'}
 					ref={emailRef}
-					Type="text"
+					Type='text'
 				/>
 				<TextInput
 					AdditionalWrapperStyle={styleProps.additionalWrapperStyle}
 					Placeholder={'Password'}
 					ref={passwordRef}
-					Type="password"
+					Type='password'
 				/>
 				<TextInput
 					AdditionalWrapperStyle={styleProps.additionalWrapperStyle}
 					Placeholder={'Confirm Password'}
 					ref={confirmationPasswordRef}
-					Type="password"
+					Type='password'
 				/>
 				<LoadingButton
 					AdditionalButtonStyle={styleProps.additionalWrapperStyle}
@@ -116,9 +112,7 @@ const SignupModule = () => {
 					</span>
 				</div>
 
-				<div className={styleProps.footerStyle}>
-					Carlton-Gernét Ltd.
-				</div>
+				<div className={styleProps.footerStyle}>Carlton-Gernét Ltd.</div>
 			</div>
 		</AuthWrapper>
 	);

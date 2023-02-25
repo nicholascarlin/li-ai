@@ -45,6 +45,7 @@ export const LoginModule = () => {
 	return (
 		<AuthWrapper>
 			<div className={styleProps.wrapperStyle}>
+				<div className={styleProps.logoStyle}>APPLICANT AI</div>
 				<div className={styleProps.additionalWrapperStyle}>
 					<div className={styleProps.headerStyle}>Login</div>
 					<div className={styleProps.subheaderStyle}>
