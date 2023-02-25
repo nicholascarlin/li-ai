@@ -139,7 +139,7 @@ module.exports = async (req, res) => {
 				company: ${company?.name}. The company describes itself as,  ${company?.description} and has a mission of, ${company?.tagline}. This is the information of the person to write the cover letter for: ${prompt?.name} . 
 				Make sure the returned cover letter is one that could be displayed in HTML. This means it should include opening and closing HTML tags. Do not include any of the prompt in your response.`,
 				temperature: 0.7,
-				max_tokens: 1500,
+				max_tokens: 1800,
 				top_p: 1,
 				frequency_penalty: 0.2,
 				presence_penalty: 0,
