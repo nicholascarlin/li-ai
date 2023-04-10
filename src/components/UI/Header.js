@@ -29,12 +29,12 @@ const Header = ({ SetActiveWindow, ActiveWindow }) => {
 					SetState={SetActiveWindow}
 					Message='Generate Cover Letter'
 				/>
-				<ActiveButton
+				{/* <ActiveButton
 					IsActive={ActiveWindow === 'RESUME'}
 					Value={'RESUME'}
 					SetState={SetActiveWindow}
 					Message='Generate Resume'
-				/>
+				/> */}
 			</div>
 
 			<div className='flex justify-center md:justify-end mx-auto md:ml-auto md:pr-5 gap-4 mb-10 md:mb-0'>

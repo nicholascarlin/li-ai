@@ -12,6 +12,8 @@ module.exports = async (req, res) => {
 	console.log(auth);
 	// let user_sub = validateJWT(auth, res);
 
+	console.log('LIURL', linkedinurl);
+
 	const addToSupabase = async (work_experiences) => {
 		const { data, error } = await supabase
 			.from('li_bot')
