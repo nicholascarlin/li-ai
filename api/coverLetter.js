@@ -88,16 +88,23 @@ module.exports = async (req, res) => {
 			console.log('COMPANy NAME', company.name);
 			console.log('POSITION POSITION');
 			console.log('OPOSITION NAME', title_applying_for);
-			const { data, error } = await supabase.from('li_covers').insert({
-				uuid,
-				cover_letter: letter_data,
-				company_name: company.name,
-				position_name: title_applying_for,
-			});
+			const { data, error } = await supabase
+				.from('li_covers')
+				.insert({
+					uuid,
+					cover_letter: letter_data,
+					company_name: company.name,
+					position_name: title_applying_for,
+				})
+				.select();
 			if (error) {
 				console.log(error);
 			}
-			return;
+			if (data) {
+				return data[0];
+			} else {
+				return null;
+			}
 		};
 
 		// Removing extraneous data to keep the obj light
@@ -185,16 +192,24 @@ module.exports = async (req, res) => {
 			const toReturn = await GenerateAnswer(nobj, companyData);
 
 			await updateNumCovers(user_sub);
-			await saveCoverLetter(user_sub, toReturn, companyData);
+			const coverLetterData = await saveCoverLetter(
+				user_sub,
+				toReturn,
+				companyData
+			);
 
-			res.status(200).send({ data: toReturn });
+			res.status(200).send({ data: coverLetterData });
 		} else {
 			console.log(companyIsSaved.status);
 			const toReturn = await GenerateAnswer(nobj, companyIsSaved.work);
 
 			await updateNumCovers(user_sub);
-			await saveCoverLetter(user_sub, toReturn, companyIsSaved.work);
-			res.status(200).send({ data: toReturn });
+			const coverLetterData = await saveCoverLetter(
+				user_sub,
+				toReturn,
+				companyIsSaved.work
+			);
+			res.status(200).send({ data: coverLetterData });
 		}
 	}
 };

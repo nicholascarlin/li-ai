@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { MdLogout } from 'react-icons/md';
 import { SiSonarcloud } from 'react-icons/si';
+import { useAuth } from '../../contexts/Auth';
 
 const TempHeader = ({
 	CoverLettersRemaining,
@@ -12,10 +13,16 @@ const TempHeader = ({
 	let generalIconStyle = 'cursor-pointer text-2xl';
 
 	const ref = useRef(null);
+	const { signOut } = useAuth();
 
 	useEffect(() => {
 		SetHeaderHeight(ref.current.clientHeight);
 	});
+
+	const HandleSignOutClick = () => {
+		localStorage.clear();
+		signOut();
+	};
 
 	return (
 		<div
@@ -33,7 +40,10 @@ const TempHeader = ({
 					onClick={() => SetPurchaseOverlayStatus(true)}
 					className={`${generalIconStyle}`}
 				/>
-				<MdLogout className={`${generalIconStyle}`} />
+				<MdLogout
+					onClick={HandleSignOutClick}
+					className={`${generalIconStyle}`}
+				/>
 			</div>
 		</div>
 	);

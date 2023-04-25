@@ -24,6 +24,10 @@ const DocumentOverlay = ({ SetSrcDoc, SrcDoc, HeaderHeight }) => {
 					<div>Company: {SrcDoc?.company_name}</div>
 					<div>Position: {SrcDoc?.position_name}</div>
 					<div>Created At: {FormatTimestamp(SrcDoc?.created_at)}</div>
+					<div>TODO:</div>
+					<div>Delete</div>
+					<div>Regenerate</div>
+					<div>Edit</div>
 				</div>
 			</div>
 		</div>
