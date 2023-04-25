@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import CoverLetterBodies from '../bodies/CoverLetterBody';
+import DocDisplayBody from '../bodies/DocDisplayBody';
 import Frame from '../bodies/Frame';
+import GenerateCoverLetterBody from '../bodies/GenerateCoverLetterBody';
 import Header from '../UI/Header';
 import LoadingPage from './LoadingPage';
 import PurchaseOverlay from '../payment/PurchaseOverlay';
 import ResumeBody from '../bodies/ResumeBody';
+import TempHeader from '../UI/TempHeader';
+import TempHomePage from './TempHomePage';
 import getNumCoverLetters from '../data/getNumCoverLetters';
 import { useNotification } from '../../contexts/NotificationProvider';
 
@@ -31,41 +35,19 @@ const HomePage = () => {
 			{isPurchaseOverlayActive ? (
 				<PurchaseOverlay SetOverlayStatus={setPurchaseOverlayStatus} />
 			) : null}
-			<div className='left-2 top-2 absolute flex items-center'>
-				<div className='bg-primary z-[5000] rounded-md md:px-2 md:py-2 px-1 py-1 text-white space-x-2 relative'>
-					<span>Cover Letters Remaining:</span>
-					<span
-						className={`${numFreeLeft && numFreeLeft > 0 && ' text-white'} ${
-							numFreeLeft === 0 && ' text-danger'
-						}`}>
-						{numFreeLeft}
-					</span>
-				</div>
-				<AiOutlineShoppingCart
-					onClick={() => {
-						setPurchaseOverlayStatus(true);
-					}}
-					className='text-3xl text-primary ml-2 cursor-pointer'
-				/>
-			</div>
-			<Header SetActiveWindow={setActiveWindow} ActiveWindow={activeWindow} />
-			<div className='w-full h-full flex flex-col p-4 gap-4 lg:grid lg:grid-cols-2'>
-				{activeWindow === 'RESUME' ? (
-					<ResumeBody
-						notify={notify}
-						SetGenerationLoadingStatus={setGenerationLoadingStatus}
-						SetSrcDoc={setSrcDoc}
-					/>
-				) : null}
-				{activeWindow === 'COVER LETTER' ? (
-					<CoverLetterBodies
-						notify={notify}
-						SetGenerationLoadingStatus={setGenerationLoadingStatus}
-						SetSrcDoc={setSrcDoc}
-					/>
-				) : null}
-				<Frame isSearching={isGenerationLoading} srcDoc={srcDoc} />
-			</div>
+
+			<TempHeader
+				CoverLettersRemaining={numFreeLeft}
+				SetActiveWindow={setActiveWindow}
+				ActiveWindow={activeWindow}
+				SetPurchaseOverlayStatus={setPurchaseOverlayStatus}
+			/>
+			<GenerateCoverLetterBody
+				notify={notify}
+				SetGenerationLoadingStatus={setGenerationLoadingStatus}
+				SetSrcDoc={setSrcDoc}
+			/>
+			<DocDisplayBody />
 		</div>
 	) : (
 		<LoadingPage />

@@ -11,6 +11,7 @@ import NotificationProvider from './contexts/NotificationProvider';
 import PrivateRoutes from './components/router/PrivateRoutes';
 import ResetPasswordModule from './components/auth/ResetPasswordModule';
 import SignupModule from './components/auth/SignupModule';
+import TempHomePage from './components/pages/TempHomePage';
 
 function App() {
 	return (
