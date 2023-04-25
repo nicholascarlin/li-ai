@@ -9,7 +9,7 @@ let dropdownItemEnum = {
 	DateAsc: 1,
 };
 
-const DocDisplayBody = () => {
+const DocDisplayBody = ({ SetSrcDoc }) => {
 	const [coverLetters, setCoverLetters] = useState([]);
 	const [coverLetterSortOrder, setCoverLetterSortOrder] = useState(
 		dropdownItemEnum.DateDesc
@@ -45,8 +45,7 @@ const DocDisplayBody = () => {
 			<hr />
 			<div className='p-3 w-full flex flex-row items-center justify-evenly flex-wrap gap-3'>
 				{coverLetters.map((item, idx) => {
-					console.log('COVER LETTER:', item);
-					return <DocDisplayItem item={item} idx={idx} />;
+					return <DocDisplayItem SetSrcDoc={SetSrcDoc} item={item} idx={idx} />;
 				})}
 			</div>
 		</div>

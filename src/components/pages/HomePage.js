@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import CoverLetterBodies from '../bodies/CoverLetterBody';
 import DocDisplayBody from '../bodies/DocDisplayBody';
+import DocumentOverlay from '../bodies/DocumentOverlay';
 import Frame from '../bodies/Frame';
 import GenerateCoverLetterBody from '../bodies/GenerateCoverLetterBody';
 import Header from '../UI/Header';
@@ -21,6 +22,7 @@ const HomePage = () => {
 	const [srcDoc, setSrcDoc] = useState(null);
 	const [numFreeLeft, setNumFreeLeft] = useState(null);
 	const [isPurchaseOverlayActive, setPurchaseOverlayStatus] = useState(false);
+	const [headerHeight, setHeaderHeight] = useState(null);
 
 	const notify = useNotification();
 
@@ -38,16 +40,25 @@ const HomePage = () => {
 
 			<TempHeader
 				CoverLettersRemaining={numFreeLeft}
-				SetActiveWindow={setActiveWindow}
-				ActiveWindow={activeWindow}
 				SetPurchaseOverlayStatus={setPurchaseOverlayStatus}
+				SetHeaderHeight={setHeaderHeight}
 			/>
-			<GenerateCoverLetterBody
-				notify={notify}
-				SetGenerationLoadingStatus={setGenerationLoadingStatus}
-				SetSrcDoc={setSrcDoc}
-			/>
-			<DocDisplayBody />
+			<div>
+				{srcDoc ? (
+					<DocumentOverlay
+						SetSrcDoc={setSrcDoc}
+						SrcDoc={srcDoc}
+						HeaderHeight={headerHeight}
+					/>
+				) : null}
+
+				<GenerateCoverLetterBody
+					notify={notify}
+					SetGenerationLoadingStatus={setGenerationLoadingStatus}
+					SetSrcDoc={setSrcDoc}
+				/>
+				<DocDisplayBody SetSrcDoc={setSrcDoc} />
+			</div>
 		</div>
 	) : (
 		<LoadingPage />

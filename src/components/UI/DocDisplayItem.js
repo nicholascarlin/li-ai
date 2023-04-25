@@ -1,8 +1,9 @@
 import { FormatTimestamp } from '../utils/FormatData';
 import React from 'react';
-export function DocDisplayItem({ item, idx }) {
+export function DocDisplayItem({ item, idx, SetSrcDoc }) {
 	return (
 		<div
+			onClick={() => SetSrcDoc(item)}
 			key={item + idx}
 			className='bg-white border shadow-lg w-56 cursor-pointer hover:shadow-2xl transition-all duration-200'>
 			<iframe
