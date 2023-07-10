@@ -82,7 +82,7 @@ const GenerateCoverLetterBody = ({
 			/>
 			<LoadingButton
 				OnClick={HandleGenerateCoverLetter}
-				Message='Search'
+				Message='Generate'
 				IsSecondary={true}
 				AdditionalButtonStyle='h-10 w-32 my-4 border-gray-300 border shadow-sm text-primary'
 				IsLoading={isButtonLoading}

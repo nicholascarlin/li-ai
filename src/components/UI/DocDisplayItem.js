@@ -14,6 +14,9 @@ export function DocDisplayItem({ item, idx, SetSrcDoc }) {
 			<div className='text-left p-2 border-t'>
 				<div className='font-semibold truncate'>{item?.company_name}</div>
 				<div className='text-sm truncate text-gray-500'>
+					{item?.position_name}
+				</div>
+				<div className='text-sm truncate text-gray-500'>
 					{FormatTimestamp(item?.created_at)}
 				</div>
 			</div>
