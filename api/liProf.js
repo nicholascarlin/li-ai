@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
 			url: `https://nubela.co/proxycurl/api/v2/linkedin?url=${linkedinurl}&fallback_to_cache=on-error&use_cache=if-recent&skills=include&inferred_salary=include&personal_email=include&personal_contact_number=include&twitter_profile_id=include&facebook_profile_id=include&github_profile_id=include&extra=include`,
 			headers: {
 				Accept: 'application/json',
-				Authorization: 'Bearer 4lfOliLcJl_GvgcrLomQrA',
+				Authorization: 'Bearer AKXEpE28Yjo-hTUSNc5VUA',
 			},
 		};
 
